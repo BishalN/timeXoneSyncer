@@ -1,17 +1,13 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - 'backend/**'
   pull_request:
     branches: [master]
     paths:
       - 'backend/**'
 
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +17,8 @@ jobs:
 
       - name: Install dependecies
         working-directory: 'backend/'
-        run: npm ci
+        run: yarn install
 
       - name: Run Tests
         working-directory: 'backend/'
-        run: npm test
+        run: yarn test

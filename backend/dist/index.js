@@ -12,6 +12,6 @@ apolloServer.applyMiddleware({
     cors: { origin: 'http://localhost:3000' },
 });
 app.listen(4000, () => {
-    console.log('App is running on port 4000');
+    console.log('App is running on port 4000 this is the test ');
 });
 //# sourceMappingURL=index.js.map
