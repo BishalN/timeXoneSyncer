@@ -1,9 +1,20 @@
-interface Person {
-  name: String;
-  age: Number;
-  gender: String;
-}
+import 'reflect-metadata';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { buildSchema } from 'type-graphql';
+import { helloResolver } from './resolvers/hello.js';
 
-let bishal: Person = { age: 23, gender: 'female', name: 'bishal' };
+const app = express();
 
-console.log('Hello world', bishal);
+const apolloServer = new ApolloServer({
+  schema: await buildSchema({ resolvers: [helloResolver], validate: false }),
+});
+
+apolloServer.applyMiddleware({
+  app,
+  cors: { origin: 'http://localhost:3000' },
+});
+
+app.listen(4000, () => {
+  console.log('App is running on port 4000');
+});
