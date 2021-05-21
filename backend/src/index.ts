@@ -16,5 +16,5 @@ apolloServer.applyMiddleware({
 });
 
 app.listen(4000, () => {
-  console.log('App is running on port 4000 this is the test version');
+  console.log('App is running on port 4000 this is the test version newonce');
 });
