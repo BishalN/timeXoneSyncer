@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
-import { helloResolver } from './resolvers/hello.js';
+import { helloResolver } from './resolvers/hello';
 
 export const sum = (a: number, b: number) => {
   return a + b;
