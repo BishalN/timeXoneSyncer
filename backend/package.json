@@ -1,7 +1,7 @@
 {
   "name": "timeXoneSyncer",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "author": "Bishal Neupane",
   "license": "MIT",
