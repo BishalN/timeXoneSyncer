@@ -22,7 +22,7 @@ const main = async () => {
 
   app.listen(4000, () => {
     console.log(
-      'App is running on port 4000 this is the test this is awesome '
+      'App is running on port 4000 this is the test this is awesomes '
     );
   });
 };
