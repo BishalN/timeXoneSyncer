@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   roots: ['./src'],
   testMatch: [
     '**/__tests__/**/*.+(ts|tsx|js)',
@@ -8,3 +8,5 @@ export default {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
 };
+
+//hello
