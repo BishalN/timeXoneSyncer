@@ -1,10 +1,6 @@
 {
   "name": "timeXoneSyncer",
   "version": "1.0.0",
-  "engines": {
-    "node": "14.x"
-  },
-  "type": "module",
   "main": "index.js",
   "author": "Bishal Neupane",
   "license": "MIT",
@@ -13,7 +9,6 @@
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
-    "build": "tsc",
     "test": "jest --runInBand --detectOpenHandles --forceExit "
   },
   "devDependencies": {

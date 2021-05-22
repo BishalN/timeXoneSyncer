@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,20 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Query, Resolver } from 'type-graphql';
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.helloResolver = void 0;
+const type_graphql_1 = require("type-graphql");
 let helloResolver = class helloResolver {
     hello() {
         return 'Hello world';
     }
 };
 __decorate([
-    Query(() => String),
+    type_graphql_1.Query(() => String),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], helloResolver.prototype, "hello", null);
 helloResolver = __decorate([
-    Resolver()
+    type_graphql_1.Resolver()
 ], helloResolver);
-export { helloResolver };
+exports.helloResolver = helloResolver;
 //# sourceMappingURL=hello.js.map
