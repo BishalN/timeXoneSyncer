@@ -1,4 +1,4 @@
-module.exports = {
+const jestConfigs = {
   roots: ['./src'],
   testMatch: [
     '**/__tests__/**/*.+(ts|tsx|js)',
@@ -8,5 +8,7 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
 };
+
+export default jestConfigs;
 
 //hello
