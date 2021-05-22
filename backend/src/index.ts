@@ -21,9 +21,7 @@ const main = async () => {
   });
 
   app.listen(4000, () => {
-    console.log(
-      'App is running on port 4000 this is the test this is awesomes '
-    );
+    console.log('App is running on port 4000 ');
   });
 };
 
