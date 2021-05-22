@@ -1,6 +1,9 @@
 {
   "name": "timeXoneSyncer",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "type": "module",
   "main": "index.js",
   "author": "Bishal Neupane",
