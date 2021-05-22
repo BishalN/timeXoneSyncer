@@ -20,7 +20,7 @@ const main = async () => {
     cors: { origin: 'http://localhost:3000' },
   });
 
-  app.listen(4000, () => {
+  app.listen(process.env.PORT || 4000, () => {
     console.log('timeXoneSyncer running on port 4000 !!');
   });
 };
