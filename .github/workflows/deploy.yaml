@@ -21,4 +21,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: 'timexonesyncer'
           heroku_email: 'neupanebishal07@gmail.com'
-          use-docker: true
+          usedocker: true
