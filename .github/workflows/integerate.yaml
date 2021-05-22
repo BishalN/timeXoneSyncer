@@ -3,9 +3,6 @@ name: Node.js Continuous Integeration
 on:
   pull_request:
     branches: [master]
-    paths:
-      - 'backend/**'
-      - 'backend/*'
 
 jobs:
   testPullRequest:
