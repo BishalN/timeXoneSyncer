@@ -22,9 +22,11 @@
     "@storybook/react": "^6.2.9",
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "autoprefixer": "^9.0.0",
+    "cypress": "^7.3.0",
     "postcss": "8",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "^4.2.4"
   }
 }
