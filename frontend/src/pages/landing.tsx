@@ -1,7 +1,5 @@
 import React from "react";
-import Logo from "../icons/logo";
 import Container from "../ui/components/Container";
-import GhostCta from "../ui/components/Ghost-CTA";
 import { MainCTA } from "../ui/components/MainCTA";
 import { HeroSVGMobile } from "../illustrations/Hero";
 import { NavBar } from "../ui/components/NavBar";
