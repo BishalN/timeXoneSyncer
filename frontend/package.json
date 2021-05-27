@@ -10,9 +10,11 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.2.1",
     "next": "10.2.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "tailwind-scrollbar": "^1.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -24,6 +26,7 @@
     "@tailwindcss/postcss7-compat": "^2.1.2",
     "@types/jest": "^26.0.23",
     "@types/luxon": "^1.26.5",
+    "@types/react-responsive": "^8.0.2",
     "autoprefixer": "^9.0.0",
     "cypress": "^7.4.0",
     "eslint": "^7.27.0",
@@ -35,6 +38,7 @@
     "postcss": "8",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
+    "react-responsive": "^8.2.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "ts-jest": "^26.5.6",
     "typescript": "^4.2.4"
