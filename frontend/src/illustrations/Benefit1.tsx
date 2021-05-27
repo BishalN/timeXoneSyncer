@@ -1,12 +1,11 @@
 import React from "react";
 
-function Benefit1SVG() {
+export function Benefit1SVG() {
   return (
     <svg
-      data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      width="849"
-      height="824.98"
+      viewBox="4 8 845 818"
+      role="Value proposition smart time usage"
     >
       <path
         d="M701 477.99l21-7 8 13-5.018 6.759A22.538 22.538 0 01703 487.99c-11-8-2-10-2-10z"
@@ -57,13 +56,12 @@ function Benefit1SVG() {
       />
       <path fill="#2f2e41" d="M640 316h44v27h-44z" />
       <circle
-        cx="269"
-        cy="269"
-        r="268"
+        cx={269}
+        cy={269}
+        r={268}
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeWidth={2}
       />
       <path
         d="M539.526 396.802A260.13 260.13 0 00560.566 294c0-144.146-116.854-261-261-261s-261 116.854-261 261 116.853 261 261 261a260.346 260.346 0 00195.394-87.986l94.207 12.687 3.836-28.981z"
@@ -95,8 +93,8 @@ function Benefit1SVG() {
       <path
         fill="#3f3d56"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M356.808 337.81l.253-55.795"
       />
       <circle cx="357.061" cy="282.015" r="7.89" fill="#3f3d56" />
@@ -105,8 +103,8 @@ function Benefit1SVG() {
       <path
         fill="#3f3d56"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M442.66 311.362l1.771-113.59"
       />
       <circle cx="444.431" cy="197.772" r="7.89" fill="#3f3d56" />
@@ -115,16 +113,16 @@ function Benefit1SVG() {
         d="M442.694 309.193s5.798-46.536-23.47-49.247"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
       <circle cx="419.224" cy="259.946" r="7.89" fill="#3f3d56" />
       <circle cx="171.213" cy="128.011" r="30.759" fill="#6c63ff" />
       <path
         fill="#3f3d56"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M171.232 314.234v-186.11"
       />
       <circle cx="171.232" cy="128.035" r="7.89" fill="#3f3d56" />
@@ -137,16 +135,16 @@ function Benefit1SVG() {
         d="M171.232 312.065s5.073-47.123-24.234-49.378"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
       <circle cx="195.951" cy="188.672" r="7.89" fill="#3f3d56" />
       <path
         d="M171.717 235.537s-5.073-44.61 24.234-46.865"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
       <path
         d="M369.736 230.171a11.06 11.06 0 1111.06-11.06 11.072 11.072 0 01-11.06 11.06zm0-21.114a10.054 10.054 0 1010.055 10.054 10.066 10.066 0 00-10.055-10.054z"
@@ -174,15 +172,15 @@ function Benefit1SVG() {
       <path
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M453 823h396"
       />
       <path
         fill="#3f3d56"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M810.582 824.98V708.887"
       />
       <circle cx="810.582" cy="708.887" r="16.417" fill="#3f3d56" />
@@ -194,8 +192,8 @@ function Benefit1SVG() {
         r="14.756"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
       <circle
         cx="348.383"
@@ -203,8 +201,8 @@ function Benefit1SVG() {
         r="14.756"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
     </svg>
   );

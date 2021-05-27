@@ -1,12 +1,11 @@
 import React from "react";
 
-function Benefit3() {
+export function Benefit3SVG() {
   return (
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      width="959.262"
-      height="684.457"
+      viewBox="12 84 1041 601"
     >
       <path
         d="M470.463 0L207.361 142.511a66.93 66.93 0 11-117.65 63.726L0 254.83l232.378 429.012 470.463-254.83z"
@@ -47,8 +46,8 @@ function Benefit3() {
       <path
         fill="none"
         stroke="#2f2e41"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
         d="M272.035 242.633l594.455-10.042M288.102 288.823l600.479-12.049M178.866 103.694l696.284 24.484"
       />
       <path
@@ -119,11 +118,11 @@ function Benefit3() {
         r="14.756"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit={10}
+        strokeWidth={2}
       />
     </svg>
   );
 }
 
-export default Benefit3;
+export default Benefit3SVG;
