@@ -4,16 +4,15 @@ import Container from "../ui/components/Container";
 import GhostCta from "../ui/components/Ghost-CTA";
 import { MainCTA } from "../ui/components/MainCTA";
 import { HeroSVGMobile } from "../illustrations/Hero";
+import { NavBar } from "../ui/components/NavBar";
 
 export default function landing() {
   return (
     <Container>
-      <nav className="flex justify-between mx-2 items-center sticky top-2">
-        <div>
-          <Logo />
-        </div>
-        <GhostCta />
-      </nav>
+      <NavBar />
+
+      {/* Hero section */}
+
       <section id="HeroSection">
         <div id="sectionWrapper" className="sm:flex sm:flex-row-reverse  ">
           <HeroSVGMobile />
