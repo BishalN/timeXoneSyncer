@@ -5,6 +5,7 @@ export function Benefit1SVG() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="4 8 845 818"
+      className="max-w-3xl"
       role="Value proposition smart time usage"
     >
       <path

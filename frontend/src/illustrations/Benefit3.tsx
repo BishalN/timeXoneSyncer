@@ -6,6 +6,7 @@ export function Benefit3SVG() {
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="12 84 1041 601"
+      className="max-w-3xl"
     >
       <path
         d="M470.463 0L207.361 142.511a66.93 66.93 0 11-117.65 63.726L0 254.83l232.378 429.012 470.463-254.83z"
