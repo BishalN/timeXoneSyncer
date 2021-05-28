@@ -22,7 +22,7 @@ p.bold {
 :root {
   font-size: 14px;
   --color-button-text: #fff;
-  --color-primary-100: #dee3ea;
+  --color-primary-100: #f2f2f2;
   --color-primary-200: #b2bdcd;
   --color-primary-300: #5d7290;
   --color-primary-600: #323d4d;
@@ -62,47 +62,4 @@ p {
 
 p.small {
   font-size: 0.85rem;
-}
-
-/* for firefox */
-* {
-  scrollbar-width: thin;
-}
-
-/* for non-firefox */
-::-webkit-scrollbar {
-  overflow: overlay;
-  width: 8px;
-  /* need a dynamic way..*/
-}
-
-::-webkit-scrollbar-track {
-  display: initial;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-}
-
-html,
-body,
-#__next {
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
-
-html {
-  position: fixed;
-}
-
-#__next {
-  overflow-y: auto;
-}
-
-::-webkit-resizer {
-}
-
-button:focus {
-  outline: none;
 }

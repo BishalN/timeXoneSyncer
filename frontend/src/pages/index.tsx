@@ -1,53 +1,50 @@
-const Home = ({ article, showImage }) => {
-  if (!article) return "The article wasn't found!";
+import React from "react";
+import { TestimonialCard } from "../ui/components/TestimonialCard";
+import Link from "next/link";
 
-  const { author, company, image_url, content } = article;
+interface indexProps {}
 
-  const Image = showImage ? (
-    <img
-      className='w-24 h-24 rounded-full mx-auto md:flex md:self-center'
-      src={image_url}
-      alt='A beautiful cat'
-      width='200'
-      height='200'
-    />
-  ) : (
-    ''
-  );
-
+const Index: React.FC<indexProps> = ({}) => {
   return (
-    <div className='w-96 mx-auto'>
-      <div className='h-screen flex items-center'>
-        <figure className='lg:flex bg-gray-200 rounded-xl p-8 lg:p-4'>
-          {Image}
-          <div className='pt-6 lg:p-4 text-center lg:text-left space-y-4'>
-            <p className='text-lg font-semibold'>{content}</p>
-            <figcaption className='font-medium'>
-              <div className='text-blue-600'>{author}</div>
-              <div className='text-gray-500'>{company}</div>
-            </figcaption>
-          </div>
-        </figure>
+    <div className="my-4">
+      <div className="flex justify-center items-center">
+        <h3 className="text-secondary text-center leading-7">
+          Over 10,000 satisfied customers
+        </h3>
       </div>
+
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center my-20"
+        id="testimonialWrapper"
+      >
+        <TestimonialCard
+          name="Alex"
+          title="ML engineer"
+          imageSrc="/images/testimony_1.jpg"
+          description="I always wished that a product like
+              TimeXoneSyncer existed and finally got
+              it. I am very happy to say that the TimeXoneSyncer is the best platform to sync international
+              time set the reminder and all other important stuff for us freelancers having international  clients staying update with international time  has never been easy"
+        />
+        <TestimonialCard
+          name="Dawyne"
+          title="actor"
+          imageSrc="/images/testimony_2.jpg"
+          description="timeXoneSyncer is the best I love the product so much so i use it every day and night to schdule meetings or whatever"
+        />
+        <TestimonialCard
+          name="Alex"
+          title="ML engineer"
+          imageSrc="/images/testimony_1.jpg"
+          description="I always wished that a product like
+              TimeXoneSyncer existed and finally got
+              it. I am very happy to say that the TimeXoneSyncer is the best platform to sync international
+              time set the reminder and all other important stuff for us freelancers having international  clients staying update with international time  has never been easy"
+        />
+      </div>
+      <Link href="#">see all testimonial</Link>
     </div>
   );
 };
 
-Home.defaultProps = {
-  showImage: true,
-};
-
-export const getServerSideProps = async () => {
-  const response = await fetch('http://localhost:3000/api/article');
-  const data = await response.json();
-
-  if (!data) return { props: {} };
-
-  return {
-    props: {
-      article: data,
-    },
-  };
-};
-
-export default Home;
+export default Index;

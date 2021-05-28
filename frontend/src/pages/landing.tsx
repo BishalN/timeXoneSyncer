@@ -7,6 +7,8 @@ import { Benefit2SVG } from "../illustrations/Benefit2";
 import { Benefit3SVG } from "../illustrations/Benefit3";
 import { NavBar } from "../ui/components/NavBar";
 import { BenefitSection } from "../ui/components/BenefitSection";
+import { TestimonialCard } from "../ui/components/TestimonialCard";
+import Link from "next/link";
 
 export default function landing() {
   return (
@@ -52,6 +54,54 @@ export default function landing() {
         SvgElement={Benefit3SVG}
         description="With TimeXoneSyncer you can set the reminder for particular time of another timezone in your own time you will be notified with email and push notification"
       />
+
+      <section id="testimonialSection">
+        <div className="flex justify-center items-center mt-10">
+          <h3 className="text-secondary text-center leading-7">
+            Over 10,000 satisfied customers
+          </h3>
+        </div>
+
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center mt-20"
+          id="testimonialWrapper"
+        >
+          <TestimonialCard
+            name="Alex"
+            title="ML engineer"
+            imageSrc="/images/testimony_1.jpg"
+            description="I always wished that a product like
+              TimeXoneSyncer existed and finally got
+              it. I am very happy to say that the TimeXoneSyncer is the best platform to sync international
+              time set the reminder and all other important stuff for us freelancers having international  clients staying update with international time  has never been easy"
+          />
+          <TestimonialCard
+            name="Dawyne"
+            title="actor"
+            imageSrc="/images/testimony_2.jpg"
+            description="timeXoneSyncer is the best I love the product so much so i use it every day and night to schdule meetings or whatever"
+          />
+          <TestimonialCard
+            name="Alex"
+            title="ML engineer"
+            imageSrc="/images/testimony_1.jpg"
+            description="I always wished that a product like
+              TimeXoneSyncer existed and finally got
+              it. I am very happy to say that the TimeXoneSyncer is the best platform to sync international
+              time set the reminder and all other important stuff for us freelancers having international  clients staying update with international time  has never been easy"
+          />
+        </div>
+        <div className="flex items-center justify-center">
+          <Link href="https://github.com/bishaln/timexonesyncer">
+            <a
+              target="_blank"
+              className="text-secondary cursor-pointer focus:text-accent"
+            >
+              See all testimonials
+            </a>
+          </Link>
+        </div>
+      </section>
     </Container>
   );
 }
