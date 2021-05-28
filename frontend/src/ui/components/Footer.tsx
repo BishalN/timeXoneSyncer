@@ -1,9 +1,9 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
-interface playProps {}
+interface FooterProps {}
 
-const play: React.FC<playProps> = ({}) => {
+export const Footer: React.FC<FooterProps> = ({}) => {
   return (
     <section id="footer" className="">
       <div className="h-48 bg-secondary">
@@ -29,5 +29,3 @@ const play: React.FC<playProps> = ({}) => {
     </section>
   );
 };
-
-export default play;
