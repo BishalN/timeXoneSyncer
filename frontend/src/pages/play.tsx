@@ -1,31 +1,28 @@
 import React from "react";
-import Link from "next/link";
+import { MainCTA } from "../ui/components/MainCTA";
+import { HeroSVGMobile } from "../illustrations/Hero";
+import { Benefit3SVG } from "../illustrations/Benefit3";
 
 interface playProps {}
 
 const play: React.FC<playProps> = ({}) => {
   return (
-    <section id="footer" className="">
-      <div className="h-48 bg-secondary">
-        <div className="container mx-auto flex flex-col space-y-3 items-center sm:items-start">
-          <Link href="#">
-            <a className="font-extrabold italic text-primary-100 text-7xl">
-              tXs
-            </a>
-          </Link>
-
-          <Link href="#">
-            <a className="focus:text-accent-hover">Legal Stuff</a>
-          </Link>
-
-          <Link href="#">
-            <a className="focus:text-accent-hover">Privacy Policy</a>
-          </Link>
+    <section id="Benefit1">
+      {/* by default */}
+      <div id="sectionWrapper" className="sm:flex">
+        <Benefit3SVG />
+        <div className="mx-2 sm:my-16 sm:space-y-4 lg:space-y-5 lg:mr-32 lg:mt-40">
+          <h3 className="my-2 text-secondary  text-2xl sm:text-3xl lg:text-4xl">
+            How much of my business hour overlaps with my clients?
+          </h3>
+          <p className="text-lg text-primary-300 my-2 max-w-sm">
+            With TimeXoneSyncer you can map your business hours with any
+            timezones around the world you don’t event need to know which
+            timezone just the name of place and you’re good to go
+          </p>
+          <MainCTA />
         </div>
       </div>
-      <p className="text-center bg-secondary pb-4">
-        Copyright © 2017-2021 TimeXoneSyncer LLC. All rights reserved
-      </p>
     </section>
   );
 };
