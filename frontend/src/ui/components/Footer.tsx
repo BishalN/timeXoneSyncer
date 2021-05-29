@@ -5,7 +5,7 @@ interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = ({}) => {
   return (
-    <section id="footer" className="">
+    <section id="footer">
       <div className="h-48 bg-secondary">
         <div className="container mx-auto flex flex-col space-y-3 items-center sm:items-start">
           <Link href="#">

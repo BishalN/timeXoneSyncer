@@ -23,7 +23,7 @@ p.bold {
   font-size: 14px;
   --color-button-text: #fff;
   --color-primary-100: #f2f2f2;
-  --color-primary-200: #b2bdcd;
+  --color-primary-200: #c4c4c4;
   --color-primary-300: #5d7290;
   --color-primary-600: #323d4d;
   --color-primary-700: #242c37;
@@ -62,4 +62,8 @@ p {
 
 p.small {
   font-size: 0.85rem;
+}
+
+button:focus {
+  outline: none;
 }
