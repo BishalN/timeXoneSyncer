@@ -5,6 +5,8 @@ import { NavBar } from "../ui/components/NavBar";
 
 import { AiOutlineGoogle, AiOutlineTwitter } from "react-icons/ai";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
+import { Button } from "../ui/components/Button";
+import { FacebookIcon } from "../icons/social";
 
 interface registerProps {}
 
@@ -28,25 +30,23 @@ const register: React.FC<registerProps> = ({}) => {
               id="AuthButtonWrapper"
               className="ml-2 flex flex-col  space-y-4"
             >
-              <button className="bg-primary-200 p-4 sm:w-11/12 rounded-lg space-x-2 flex justify-center items-center focus:ring-2 focus:ring-secondary ">
-                <AiOutlineGoogle size="2em" />
-                <span>Login with google</span>
-              </button>
+              <Button
+                title="Login with google"
+                Icon={AiOutlineGoogle}
+                endPoint="http://localhost:4000/auth/google"
+              />
 
-              <button className="bg-primary-200 p-4 sm:w-11/12 space-x-2 rounded-lg flex items-center justify-center focus:ring-2 focus:ring-secondary ">
-                <FaFacebook size="2em" />
-                <span>Login with facebook</span>
-              </button>
+              <Button
+                title="Login with facebook"
+                Icon={FaFacebook}
+                endPoint="http://localhost:4000/auth/facebook"
+              />
 
-              <button className="bg-primary-200 p-4 sm:w-11/12 space-x-2 rounded-lg flex items-center justify-center focus:ring-2 focus:ring-secondary ">
-                <AiOutlineTwitter size="2em" />
-                <span>Login with twitter</span>
-              </button>
-
-              <button className="bg-primary-200 p-4 sm:w-11/12 space-x-2 rounded-lg flex items-center justify-center focus:ring-2 focus:ring-secondary ">
-                <FaDiscord size="2em" />
-                <span>Login with discord</span>
-              </button>
+              <Button
+                title="Login with discord"
+                Icon={FaDiscord}
+                endPoint="http://localhost:4000/auth/discord"
+              />
             </div>
           </div>
         </div>

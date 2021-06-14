@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.2.1",
     "autoprefixer": "9",
+    "axios": "^0.21.1",
     "next": "10.2.2",
     "postcss": "7",
     "react": "17.0.2",

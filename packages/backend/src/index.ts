@@ -6,6 +6,7 @@ import { helloResolver } from "./resolvers/hello";
 import passport from "passport";
 import session from "express-session";
 import connectRedis from "connect-redis";
+import cors from "cors";
 
 import { router as googleAuthHandler } from "./modules/auth/googleLogin";
 import { router as facebookAuthHandler } from "./modules/auth/facebookLogin";
@@ -21,6 +22,9 @@ const main = async () => {
   await createTypeormConnection();
 
   const app = express();
+
+  //cors for rest end points
+  app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
   app.use(
     session({
@@ -50,7 +54,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: { origin: "http://localhost:4000" },
+    cors: { origin: "http://localhost:3000" },
   });
 
   app.listen(process.env.PORT || 4000, () => {
