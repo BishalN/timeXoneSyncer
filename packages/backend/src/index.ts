@@ -10,6 +10,7 @@ import { Strategy as FacebookStrategy } from "passport-facebook";
 
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
+import axios from "axios";
 
 dotenv.config();
 
@@ -33,7 +34,7 @@ const main = async () => {
 
         //we need to register user
         if (!user) {
-          const user = User.create({
+          user = User.create({
             email,
             googleId: id,
             username: name,
@@ -49,7 +50,7 @@ const main = async () => {
           //log the user in
         }
 
-        return cb(null, { id: user?.id });
+        return cb(null, { id: user.id });
       }
     )
   );
@@ -61,10 +62,52 @@ const main = async () => {
         clientSecret: process.env.FACEBOOK_APP_SECRET as string,
         callbackURL: process.env.FACEBOOK_CALLBACK_URL as string,
       },
-      function (accessToken, refreshToken, profile, cb) {
-        console.log(profile);
+      async (accessToken, _, profile, cb) => {
+        const {
+          _json: { id },
+        } = profile;
 
-        return cb(null, profile);
+        let graphqlUrl = `https://graph.facebook.com/v9.0/${id}/?fields=id,name,email,picture&access_token=${accessToken}`;
+
+        const { data } = await axios.get(graphqlUrl);
+
+        const {
+          name,
+          email,
+          picture: {
+            data: { url },
+          },
+        } = data;
+
+        let userQuery = connection
+          .getRepository(User)
+          .createQueryBuilder("user")
+          .where("user.facebookId =:id", { id });
+
+        if (email) {
+          userQuery.orWhere("user.email =:email", { email });
+        }
+
+        let user = await userQuery.getOne();
+
+        //Register the user
+        if (!user) {
+          user = User.create({
+            facebookId: id,
+            profilePicture: url,
+            username: name,
+            email,
+          });
+          await user.save();
+        } else if (!user.facebookId) {
+          //merge account we found the user by email
+          user.facebookId = id;
+          await user.save();
+        } else {
+          //log the user in
+        }
+
+        return cb(null, { id: user.id });
       }
     )
   );
@@ -91,18 +134,13 @@ const main = async () => {
     }
   );
 
-  app.get(
-    "/auth/facebook",
-    passport.authenticate("facebook", {
-      session: false,
-      scope: ["email,profile_picture"],
-    })
-  );
+  app.get("/auth/facebook", passport.authenticate("facebook"));
 
   app.get(
     "/auth/facebook/callback",
     passport.authenticate("facebook", {
       failureRedirect: process.env.LOGIN_URL,
+      session: false,
     }),
     function (req, res) {
       //@todo store the users session id in redis   (req.session as any).userId = (req.user as any).id;

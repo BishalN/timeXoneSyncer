@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.24.1",
+    "axios": "^0.21.1",
     "connect-redis": "^5.2.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
