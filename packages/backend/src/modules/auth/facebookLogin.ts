@@ -76,8 +76,9 @@ router.get(
     failureRedirect: process.env.LOGIN_URL,
     session: false,
   }),
-  function (req, res) {
-    //@todo store the users session id in redis   (req.session as any).userId = (req.user as any).id;
+  (req, res) => {
+    (req.session as any).userId = (req.user as any).id;
+
     res.redirect(process.env.LOGIN_SUCCESS_URL as string);
   }
 );

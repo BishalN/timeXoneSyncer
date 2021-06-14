@@ -23,7 +23,7 @@ passport.use(
 
       //we need to register user
       if (!user) {
-        const user = User.create({
+        user = User.create({
           email,
           googleId: id,
           username: name,
@@ -56,8 +56,8 @@ router.get(
     session: false,
   }),
   (req, res) => {
-    //@todo store the users session id in redis   (req.session as any).userId = (req.user as any).id;
-    console.log((req.user as any).id);
+    (req.session as any).userId = (req.user as any).id;
+
     res.redirect(process.env.LOGIN_SUCCESS_URL as string);
   }
 );
