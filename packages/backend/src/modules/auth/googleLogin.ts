@@ -1,7 +1,11 @@
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 import { User } from "../../entity/User";
+import express from "express";
+import { config } from "../../utils/createDotEnvConfig";
 
+const router = express.Router();
+config();
 passport.use(
   new Strategy(
     {
@@ -39,3 +43,22 @@ passport.use(
     }
   )
 );
+
+router.get(
+  "/",
+  passport.authenticate("google", { scope: ["profile", "email", "openid"] })
+);
+
+router.get(
+  "/callback",
+  passport.authenticate("google", {
+    failureRedirect: process.env.LOGIN_URL,
+    session: false,
+  }),
+  (req, res) => {
+    //@todo store the users session id in redis   (req.session as any).userId = (req.user as any).id;
+    console.log((req.user as any).id);
+    res.redirect(process.env.LOGIN_SUCCESS_URL as string);
+  }
+);
+export { router };
