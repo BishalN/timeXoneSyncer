@@ -25,7 +25,7 @@ const main = async () => {
   const app = express();
 
   //cors for rest end points
-  app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+  app.use(cors());
 
   app.use(
     session({
@@ -63,7 +63,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: { origin: "http://localhost:3000" },
+    cors: { origin: "http://localhost:3000", credentials: true },
   });
 
   app.listen(process.env.PORT || 4000, () => {
