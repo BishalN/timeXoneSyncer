@@ -5,7 +5,6 @@ import { buildSchema } from "type-graphql";
 import passport from "passport";
 import session from "express-session";
 import connectRedis from "connect-redis";
-import cors from "cors";
 
 import { router as googleAuthHandler } from "./modules/auth/googleLogin";
 import { router as facebookAuthHandler } from "./modules/auth/facebookLogin";
@@ -23,9 +22,6 @@ const main = async () => {
   await createTypeormConnection();
 
   const app = express();
-
-  //cors for rest end points
-  app.use(cors());
 
   app.use(
     session({

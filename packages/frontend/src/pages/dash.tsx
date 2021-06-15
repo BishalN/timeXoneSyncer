@@ -1,30 +1,43 @@
 import React from "react";
-import client from "../apolloClient";
-import { gql } from "@apollo/client";
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: gql`
-      query Me {
-        me {
-          username
-          email
-          profilePicture
-        }
-      }
-    `,
-  });
+import { useMeQuery } from "../generated/graphql";
+import Logo from "../icons/logo";
+import { LoadingSpinner } from "../ui/components/LoadingSpinner";
+import { useIsAuth } from "../utils/useIsAuth";
+import { withApollo } from "../utils/withApollo";
 
-  return {
-    props: {
-      me: data,
-    },
-  };
-}
+interface DashProps {}
 
-function dash({ me }) {
-  console.log(me);
-  return <div>welcome to the dash bro</div>;
-}
+const Dash: React.FC<DashProps> = () => {
+  useIsAuth();
+  const { data, loading, error } = useMeQuery();
+  return (
+    <div className="h-screen w-screen">
+      {loading && <LoadingSpinner />}
 
-export default dash;
+      {/* {!loading && (
+       
+      )} */}
+      <div className="w-1/4 h-full bg-primary-100 fixed">
+        <div className="pt-2 mx-2">
+          <div className="pt-4 mx-4">
+            <Logo />
+          </div>
+          <div className="flex justify-center items-center mt-12 flex-col space-y-5 text-primary-900">
+            <img
+              className="rounded-full w-40"
+              src={data.me?.profilePicture}
+              alt={data.me?.username}
+            />
+            <span>{data.me?.username}</span>
+            <p className="self-start mx-4 text-secondary text-xl mt-10">
+              Recent searches
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default withApollo({})(Dash);
