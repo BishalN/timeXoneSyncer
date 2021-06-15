@@ -1,16 +1,21 @@
+import { Field, ObjectType } from "type-graphql";
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 
+@ObjectType()
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Field((type) => String)
   @Column("varchar", { length: 255 })
   username: string;
 
+  @Field((type) => String, { nullable: true })
   @Column("varchar", { unique: true, nullable: true })
   email: string | null;
 
+  @Field()
   @Column("text", { nullable: true })
   profilePicture: string;
 

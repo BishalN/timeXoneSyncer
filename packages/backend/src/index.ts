@@ -2,7 +2,6 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { helloResolver } from "./resolvers/hello";
 import passport from "passport";
 import session from "express-session";
 import connectRedis from "connect-redis";
@@ -14,6 +13,8 @@ import { router as discordAuthHandler } from "./modules/auth/discordLogin";
 import { createTypeormConnection } from "./utils/createDatabasecConnection";
 import { config } from "./utils/createDotEnvConfig";
 import { redis } from "./redis";
+import { helloResolver } from "./modules/dummy/resolver";
+import { meResolver } from "./modules/me/resolver";
 
 config();
 const RedisStore = connectRedis(session as any);
@@ -49,7 +50,15 @@ const main = async () => {
   app.use("/auth/discord", discordAuthHandler);
 
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({ resolvers: [helloResolver], validate: false }),
+    schema: await buildSchema({
+      resolvers: [helloResolver, meResolver],
+      validate: false,
+    }),
+    context: ({ req, res }: any) => ({
+      req,
+      res,
+      redis,
+    }),
   });
 
   apolloServer.applyMiddleware({
