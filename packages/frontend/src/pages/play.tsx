@@ -1,30 +1,68 @@
-import React from "react";
-import { MainCTA } from "../ui/components/MainCTA";
-import { HeroSVGMobile } from "../illustrations/Hero";
-import { Benefit3SVG } from "../illustrations/Benefit3";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineClose } from "react-icons/ai";
+import Logo from "../icons/logo";
+import { useMeQuery } from "../generated/graphql";
+import { withApollo } from "../utils/withApollo";
 
 interface playProps {}
 
 const play: React.FC<playProps> = ({}) => {
+  const { data, loading, error } = useMeQuery();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
-    <section id="Benefit1">
-      {/* by default */}
-      <div id="sectionWrapper" className="sm:flex">
-        <Benefit3SVG />
-        <div className="mx-2 sm:my-16 sm:space-y-4 lg:space-y-5 lg:mr-32 lg:mt-40">
-          <h3 className="my-2 text-secondary  text-2xl sm:text-3xl lg:text-4xl">
-            How much of my business hour overlaps with my clients?
-          </h3>
-          <p className="text-lg text-primary-300 my-2 max-w-sm">
-            With TimeXoneSyncer you can map your business hours with any
-            timezones around the world you don’t event need to know which
-            timezone just the name of place and you’re good to go
-          </p>
-          <MainCTA />
-        </div>
+    <>
+      {!isSidebarOpen && (
+        <GiHamburgerMenu
+          className="md:hidden"
+          size={40}
+          onClick={() => {
+            toggleSidebar();
+            console.log(isSidebarOpen);
+          }}
+        />
+      )}
+      <div
+        className={`${
+          isSidebarOpen ? "absolute top-0 left-0" : "hidden"
+        } md:block `}
+      >
+        {!loading && (
+          <div className="md:w-1/4 h-screen bg-primary-100 fixed">
+            {isSidebarOpen && (
+              <AiOutlineClose
+                className="md:hidden mt-2 mx-2 cursor-pointer text-accent"
+                size={20}
+                onClick={() => {
+                  toggleSidebar();
+                  console.log(isSidebarOpen);
+                }}
+              />
+            )}
+            <div className="pt-2 mx-2">
+              <div className="pt-4 mx-4">
+                <Logo />
+              </div>
+              <div className="flex justify-center items-center mt-12 flex-col space-y-5 text-primary-900">
+                <img
+                  className="rounded-full w-40"
+                  src={data.me?.profilePicture}
+                  alt={data.me?.username}
+                />
+                <span className="capitalize text-xl">{data.me?.username}</span>
+                <p className="self-start mx-4 text-secondary text-xl mt-10">
+                  Recent searches
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </section>
+    </>
   );
 };
 
-export default play;
+export default withApollo({})(play);

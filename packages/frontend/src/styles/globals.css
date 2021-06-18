@@ -67,3 +67,10 @@ p.small {
 button:focus {
   outline: none;
 }
+
+/* for sidebar only */
+@media (min-width: 768px) {
+  .custom-margin-left {
+    margin-left: 25%;
+  }
+}
