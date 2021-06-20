@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import Flag from "react-country-flag";
+import { getName } from "country-list";
 
 import { useMeQuery } from "../generated/graphql";
 import Logo from "../icons/logo";
-import { HeroSVGMobile } from "../illustrations/Hero";
 import { TestSvg } from "../illustrations/tt";
 import Container from "../ui/components/Container";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
+import { countryCodeWithIana } from "../utils/data";
 import { withApollo } from "../utils/withApollo";
+import MyComponent from "./play";
 
 interface syncProps {}
 
 const sync: React.FC<syncProps> = ({}) => {
   const { data, loading, error } = useMeQuery();
 
-  //Be IANA string
-  const [selectedZone, setSelectedZone] = useState("");
+  const [selectedZone, setSelectedZone] = useState(countryCodeWithIana[0]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -50,17 +51,20 @@ const sync: React.FC<syncProps> = ({}) => {
           <div className="bg-primary-100 text-primary-300 rounded-lg max-w-sm px-4 pt-2">
             <div className="absolute mr-2">
               <Flag
-                countryCode={selectedZone.split("-")[0]}
+                countryCode={selectedZone.split("__")[0]}
                 svg
                 style={{
                   width: "2em",
                   height: "2em",
                 }}
-                title={selectedZone.split("-")[0]}
+                title={selectedZone.split("__")[0]}
               />
             </div>
             <div className="ml-9">
-              <span>Nepal,Kathmandu UTC +5:45</span>
+              <span>
+                {getName(selectedZone.split("__")[0])},
+                {selectedZone.split("/")[1]} UTC +5:45
+              </span>
               <p className="text-primary-600">8:35am Sat</p>
             </div>
             <select
@@ -68,11 +72,16 @@ const sync: React.FC<syncProps> = ({}) => {
               value={selectedZone}
               onChange={(e) => setSelectedZone(e.target.value)}
             >
-              {/* the values should be like this CountryCode-IanaString */}
-              <option value="np-NEPAL/KATHMANDU">Nepal/Kathmandu</option>
-              <option value="CI-Africa/Abidjan">Africa/Abidjan</option>
-              <option value="GH-Africa/Accra">Africa/Accra</option>
+              {countryCodeWithIana.map((ci) => (
+                <option key={ci + Math.random()} value={ci}>
+                  {ci.split("__")[1]}
+                </option>
+              ))}
             </select>
+            <MyComponent
+              selectedZone={selectedZone}
+              onChange={(e) => setSelectedZone(e.target.value)}
+            />
           </div>
           {/* <span className="flex items-center justify-start text-secondary-washed-out text-xl">
             Vs
