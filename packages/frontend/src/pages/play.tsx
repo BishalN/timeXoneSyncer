@@ -1,25 +1,7 @@
-import React, { Component } from "react";
-import Select from "react-select";
-import { countryCodeWithIana } from "../utils/data";
-import { getName } from "country-list";
+import dynamic from "next/dynamic";
 
-interface TimeZoneSelectorProps {
-  selectedZone: string;
-  onChange: (e) => void;
+const MyChart = dynamic(() => import("../ui/Selector"), { ssr: false });
+
+export default function Play() {
+  return <MyChart />;
 }
-const options = [];
-countryCodeWithIana.map((ci) => {
-  options.push({
-    value: ci,
-    label: getName(ci.split("__")[0]) + "  " + ci.split("__")[1],
-  });
-});
-
-export const MyComponent: React.FC<TimeZoneSelectorProps> = ({
-  onChange,
-  selectedZone,
-}) => (
-  <Select options={options} value={selectedZone as any} onChange={onChange} />
-);
-
-export default MyComponent;

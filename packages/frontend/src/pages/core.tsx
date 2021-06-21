@@ -1,24 +1,16 @@
-import React from 'react';
-import { DateTime, Zone } from 'luxon';
+import React from "react";
+import { DateTime } from "luxon";
 
 function core() {
-  const myZone = DateTime.now(); //Input
-  const rezoneTimeZone = myZone.setZone('America/New_York');
-  console.log(rezoneTimeZone.zoneName);
-  const formattedForm = rezoneTimeZone.toLocaleString({
-    timeZoneName: 'short',
-    weekday: 'short',
-    hour12: true,
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-  });
-  console.log(formattedForm);
+  const dt = DateTime.now();
+  const offset = dt.offsetNameShort; //GMT +5:45
+  const country = dt.zoneName;
+  const simpleTime = dt.toLocaleString(DateTime.TIME_SIMPLE);
+  const dayOfWeek = dt.weekdayShort;
 
   return (
     <div>
-      hello this is the core app {myZone.zoneName} {myZone.weekdayShort}{' '}
-      {myZone.day} {myZone.year}
+      {simpleTime} {offset} {country} {dayOfWeek}
     </div>
   );
 }
