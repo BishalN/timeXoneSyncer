@@ -2,7 +2,7 @@ import React from "react";
 
 interface ttProps {}
 
-export const TestSvg: React.FC<ttProps> = () => {
+export const SyncSvg: React.FC<ttProps> = () => {
   return (
     <svg
       className="hidden sm:block max-w-md max-h-64 xl:mr-28"

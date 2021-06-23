@@ -7,7 +7,6 @@ interface ZoneProps {
   zone: zone;
   setZoneChange: (zone: zone) => void;
   options: any;
-  isRootZone?: boolean;
   simpleTime: string;
   dayOfWeek: string;
 }
@@ -16,12 +15,14 @@ export const ZoneSelector: React.FC<ZoneProps> = ({
   zone,
   options,
   setZoneChange,
-  isRootZone,
   dayOfWeek,
   simpleTime,
 }) => {
   return (
-    <div className="bg-primary-100 text-primary-300 rounded-lg max-w-lg px-4 pb-2 py-3">
+    <div
+      className="bg-primary-100
+     text-primary-300 rounded-lg max-w-sm min-w-1/4  px-4 pb-2 py-3"
+    >
       {zone.value?.name ? (
         <>
           <div className="absolute mr-2">

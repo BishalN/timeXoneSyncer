@@ -4,7 +4,10 @@ import { getName as getNameOfCountry } from "country-list";
 import Select from "react-select";
 import { getCurrentTimeByZone, getUserTimeZone } from "../utils/getUserTime";
 import { GenericButton } from "./components/GenericButton";
-import { compareDifferentTimeZones, mode } from "../utils/func";
+import {
+  compareDifferentTimeZones,
+  mode,
+} from "../utils/compareDifferentTimezone";
 import { ZoneSelector } from "./components/ZoneSelector";
 import { ComparisonResult } from "./ComparisonResult";
 
@@ -26,7 +29,7 @@ export interface comparisonModeOptions {
   value: string;
 }
 
-export const MyComponent: React.FC = ({}) => {
+export const Selector: React.FC = ({}) => {
   const options = [
     {
       label: "select a time zone",
@@ -67,7 +70,7 @@ export const MyComponent: React.FC = ({}) => {
     if (rootZone && subZoneOne?.value) {
       compareTimeZoneHandler();
     }
-  }, [comparisonMode, rootZone, subZoneOne]);
+  }, [comparisonMode, rootZone, subZoneOne, subZoneTwo]);
 
   useEffect(() => {
     if (subZoneTwo?.value) {
@@ -80,7 +83,7 @@ export const MyComponent: React.FC = ({}) => {
       mode: comparisonMode.value as mode,
       rootZone: rootZone?.value.name,
       subZoneOne: subZoneOne?.value.name,
-      subZoneTwo: subZoneTwo?.value.name,
+      subZoneTwo: subZoneTwo?.value?.name,
     });
 
     if (result) setComparisonResult(result as any);
@@ -99,36 +102,38 @@ export const MyComponent: React.FC = ({}) => {
   return (
     <div>
       <main className="mx-2 my-16 space-y-6">
-        <ZoneSelector
-          dayOfWeek={returnDayOfWeek(rootZone.value.name)}
-          options={options}
-          simpleTime={returnSimpleTime(rootZone.value.name)}
-          zone={rootZone}
-          setZoneChange={setRootZone}
-        />
-
-        <ZoneSelector
-          dayOfWeek={returnDayOfWeek(subZoneOne.value?.name)}
-          options={options}
-          setZoneChange={setSubZoneOne}
-          simpleTime={returnSimpleTime(subZoneOne.value?.name)}
-          zone={subZoneOne}
-        />
-
-        {subZoneTwo ? (
+        <div className="md:flex md:space-x-10 space-y-4 md:space-y-0">
           <ZoneSelector
-            dayOfWeek={returnDayOfWeek(subZoneTwo.value?.name)}
+            dayOfWeek={returnDayOfWeek(rootZone.value.name)}
             options={options}
-            setZoneChange={setSubZoneTwo}
-            zone={subZoneTwo}
-            simpleTime={returnSimpleTime(subZoneTwo.value?.name)}
+            simpleTime={returnSimpleTime(rootZone.value.name)}
+            zone={rootZone}
+            setZoneChange={setRootZone}
           />
-        ) : null}
+
+          <ZoneSelector
+            dayOfWeek={returnDayOfWeek(subZoneOne.value?.name)}
+            options={options}
+            setZoneChange={setSubZoneOne}
+            simpleTime={returnSimpleTime(subZoneOne.value?.name)}
+            zone={subZoneOne}
+          />
+
+          {subZoneTwo ? (
+            <ZoneSelector
+              dayOfWeek={returnDayOfWeek(subZoneTwo.value?.name)}
+              options={options}
+              setZoneChange={setSubZoneTwo}
+              zone={subZoneTwo}
+              simpleTime={returnSimpleTime(subZoneTwo.value?.name)}
+            />
+          ) : null}
+        </div>
 
         {rootZone && subZoneOne?.value?.name ? (
           <div className="flex items-center space-x-4 w-full">
             <Select
-              className="w-48 bg-primary-100"
+              className="w-56 bg-primary-100"
               onFocus={() => compareTimeZoneHandler()}
               options={comparisonModeOptions}
               value={comparisonMode}
@@ -151,7 +156,10 @@ export const MyComponent: React.FC = ({}) => {
             {subZoneTwo ? (
               <GenericButton
                 title="Delete last zone"
-                onClick={() => setSubZoneTwo(null)}
+                onClick={() => {
+                  setSubZoneTwo(null);
+                  compareTimeZoneHandler();
+                }}
               />
             ) : null}
           </div>
@@ -169,5 +177,3 @@ export const MyComponent: React.FC = ({}) => {
     </div>
   );
 };
-
-export default MyComponent;
