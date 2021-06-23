@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ct from "countries-and-timezones";
 import { getName as getNameOfCountry } from "country-list";
-import Flag from "react-country-flag";
 import Select from "react-select";
 import { getCurrentTimeByZone, getUserTimeZone } from "../utils/getUserTime";
 import { GenericButton } from "./components/GenericButton";
 import { compareDifferentTimeZones, mode } from "../utils/func";
+import { ZoneSelector } from "./components/ZoneSelector";
+import { ComparisonResult } from "./ComparisonResult";
 
-type zoneValue = {
+export type zoneValue = {
   name: string;
   utcOffset: number;
   utcOffsetStr: string;
@@ -16,11 +17,11 @@ type zoneValue = {
   aliasOf: string | null;
   country: string | null;
 };
-interface zone {
+export interface zone {
   label: string;
   value: zoneValue;
 }
-interface comparisonModeOptions {
+export interface comparisonModeOptions {
   label: string;
   value: string;
 }
@@ -66,7 +67,13 @@ export const MyComponent: React.FC = ({}) => {
     if (rootZone && subZoneOne?.value) {
       compareTimeZoneHandler();
     }
-  }, [comparisonMode]);
+  }, [comparisonMode, rootZone, subZoneOne]);
+
+  useEffect(() => {
+    if (subZoneTwo?.value) {
+      compareTimeZoneHandler();
+    }
+  }, [subZoneTwo]);
 
   const compareTimeZoneHandler = () => {
     const result = compareDifferentTimeZones({
@@ -79,123 +86,49 @@ export const MyComponent: React.FC = ({}) => {
     if (result) setComparisonResult(result as any);
   };
 
-  const { dayOfWeek, simpleTime } = getCurrentTimeByZone(rootZone.value.name);
+  const returnDayOfWeek = (zoneName) => {
+    const { dayOfWeek } = getCurrentTimeByZone(zoneName);
+    return dayOfWeek;
+  };
+
+  const returnSimpleTime = (zoneName) => {
+    const { simpleTime } = getCurrentTimeByZone(zoneName);
+    return simpleTime;
+  };
 
   return (
     <div>
       <main className="mx-2 my-16 space-y-6">
-        <div className="bg-primary-100 text-primary-300 rounded-lg max-w-lg px-4 pb-2 py-3">
-          {rootZone.value?.name ? (
-            <>
-              <div className="absolute mr-2">
-                <Flag
-                  countryCode={rootZone.value?.country}
-                  svg
-                  style={{
-                    width: "2em",
-                    height: "2em",
-                  }}
-                  title={rootZone.value.country}
-                />
-              </div>
-              <div className="ml-9">
-                <span>
-                  {rootZone.label}, UTC {rootZone.value.utcOffsetStr}
-                </span>
-                <p className="text-primary-600">
-                  {simpleTime} {dayOfWeek}{" "}
-                </p>
-              </div>
-            </>
-          ) : null}
+        <ZoneSelector
+          dayOfWeek={returnDayOfWeek(rootZone.value.name)}
+          options={options}
+          simpleTime={returnSimpleTime(rootZone.value.name)}
+          zone={rootZone}
+          setZoneChange={setRootZone}
+        />
 
-          <div className="my-3">
-            <Select
-              options={options}
-              value={rootZone}
-              onChange={(zone) => setRootZone(zone)}
-            />
-          </div>
-        </div>
-
-        <div className="bg-primary-100 text-primary-300 rounded-lg max-w-lg px-4 pb-2 py-3">
-          {subZoneOne.value?.name ? (
-            <>
-              <div className="absolute mr-2">
-                <Flag
-                  countryCode={subZoneOne.value.country}
-                  svg
-                  style={{
-                    width: "2em",
-                    height: "2em",
-                  }}
-                  title={subZoneOne.value.country}
-                />
-              </div>
-              <div className="ml-9">
-                <span>
-                  {subZoneOne.label}, UTC {subZoneOne.value.utcOffsetStr}
-                </span>
-                <p className="text-primary-600">
-                  {simpleTime} {dayOfWeek}{" "}
-                </p>
-              </div>
-            </>
-          ) : null}
-
-          <div className="my-3">
-            <Select
-              options={options}
-              value={subZoneOne}
-              onChange={(zone) => {
-                setSubZoneOne(zone);
-              }}
-            />
-          </div>
-        </div>
+        <ZoneSelector
+          dayOfWeek={returnDayOfWeek(subZoneOne.value?.name)}
+          options={options}
+          setZoneChange={setSubZoneOne}
+          simpleTime={returnSimpleTime(subZoneOne.value?.name)}
+          zone={subZoneOne}
+        />
 
         {subZoneTwo ? (
-          <div className="bg-primary-100 text-primary-300 rounded-lg max-w-lg px-4 pb-2 py-3">
-            {subZoneTwo.value?.name ? (
-              <>
-                <div className="absolute mr-2">
-                  <Flag
-                    countryCode={subZoneTwo.value.country}
-                    svg
-                    style={{
-                      width: "2em",
-                      height: "2em",
-                    }}
-                    title={subZoneTwo.value.country}
-                  />
-                </div>
-                <div className="ml-9">
-                  <span>
-                    {subZoneTwo.label}, UTC {subZoneTwo.value.utcOffsetStr}
-                  </span>
-                  <p className="text-primary-600">
-                    {simpleTime} {dayOfWeek}{" "}
-                  </p>
-                </div>
-              </>
-            ) : null}
-
-            <div className="my-3">
-              <Select
-                options={options}
-                value={subZoneTwo}
-                onChange={(zone) => {
-                  setSubZoneTwo(zone);
-                }}
-              />
-            </div>
-          </div>
+          <ZoneSelector
+            dayOfWeek={returnDayOfWeek(subZoneTwo.value?.name)}
+            options={options}
+            setZoneChange={setSubZoneTwo}
+            zone={subZoneTwo}
+            simpleTime={returnSimpleTime(subZoneTwo.value?.name)}
+          />
         ) : null}
 
         {rootZone && subZoneOne?.value?.name ? (
           <div className="flex items-center space-x-4 w-full">
             <Select
-              className="w-36"
+              className="w-48 bg-primary-100"
               onFocus={() => compareTimeZoneHandler()}
               options={comparisonModeOptions}
               value={comparisonMode}
@@ -225,36 +158,12 @@ export const MyComponent: React.FC = ({}) => {
         ) : null}
 
         {comparisonResult.length > 1 ? (
-          <div>
-            <p>
-              Here is the result of the comparion made between {rootZone.label}{" "}
-              and {subZoneOne.label}
-            </p>
-            <table className="border">
-              <thead>
-                <tr>
-                  {comparisonResult.map((item) => {
-                    return (
-                      <th key={item + Math.random()} className="border">
-                        {item.name}
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonResult[0].mappings.map(
-                  (value: string, rowIndex: number, arr: []) => (
-                    <tr>
-                      {comparisonResult.map((item, zoneIndex, arr) => (
-                        <td className="border">{item.mappings[rowIndex]}</td>
-                      ))}
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
-          </div>
+          <ComparisonResult
+            comparisonResult={comparisonResult}
+            rootZone={rootZone}
+            subZoneOne={subZoneOne}
+            subZoneTwo={subZoneTwo}
+          />
         ) : null}
       </main>
     </div>
