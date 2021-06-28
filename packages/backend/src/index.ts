@@ -14,13 +14,14 @@ import { config } from "./utils/createDotEnvConfig";
 import { redis } from "./redis";
 import { helloResolver } from "./modules/dummy/resolver";
 import { meResolver } from "./modules/me/resolver";
+import { initializeFirebase } from "./utils/initializeFirebase";
 
 config();
 const RedisStore = connectRedis(session as any);
 
 const main = async () => {
   await createTypeormConnection();
-
+  initializeFirebase();
   const app = express();
 
   app.use(
