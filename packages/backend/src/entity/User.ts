@@ -1,5 +1,12 @@
 import { Field, ObjectType } from "type-graphql";
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
+import { Reminder } from "./Reminder";
 
 @ObjectType()
 @Entity()
@@ -27,4 +34,7 @@ export class User extends BaseEntity {
 
   @Column("text", { nullable: true })
   discordId: string;
+
+  @OneToMany(() => Reminder, (notification) => notification.user)
+  reminders: Reminder[];
 }

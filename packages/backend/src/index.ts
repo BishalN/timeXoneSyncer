@@ -14,14 +14,14 @@ import { config } from "./utils/createDotEnvConfig";
 import { redis } from "./redis";
 import { helloResolver } from "./modules/dummy/resolver";
 import { meResolver } from "./modules/me/resolver";
-import { initializeFirebase } from "./utils/initializeFirebase";
+import { customAuthChecker } from "./utils/isAuthenticated";
+import { reminderResolver } from "./modules/reminder/resolver";
 
 config();
 const RedisStore = connectRedis(session as any);
 
 const main = async () => {
   await createTypeormConnection();
-  initializeFirebase();
   const app = express();
 
   app.use(
@@ -48,8 +48,8 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [helloResolver, meResolver],
-      validate: false,
+      resolvers: [helloResolver, meResolver, reminderResolver],
+      authChecker: customAuthChecker,
     }),
     context: ({ req, res }: any) => ({
       req,

@@ -6,6 +6,8 @@ const play = () => {
   useEffect(() => {
     const getToken = async () => {
       const messaging = firebase.messaging();
+      //make a call to the backend and store the userNotification Token in database
+
       console.log(messaging.getToken({ vapidKey: webPushPublicVapidKey }));
     };
     getToken();
