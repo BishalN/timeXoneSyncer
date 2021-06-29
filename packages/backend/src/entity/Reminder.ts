@@ -19,7 +19,7 @@ export class Reminder extends BaseEntity {
   @Column("text")
   title: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column("text", { nullable: true })
   description: string;
 

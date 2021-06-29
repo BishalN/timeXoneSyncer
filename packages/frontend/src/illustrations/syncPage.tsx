@@ -1,13 +1,10 @@
 import React from "react";
 
-interface ttProps {}
-
-export const SyncSvg: React.FC<ttProps> = () => {
+export const SyncSvg: React.FC = () => {
   return (
     <svg
       className="hidden sm:block max-w-md max-h-64 xl:mr-28"
       id="a115e649-e6de-4a08-abb2-c2a69b6ac895"
-      data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 892.6139 540.80203"
     >

@@ -12,6 +12,7 @@ interface DashProps {}
 const Dash: React.FC<DashProps> = () => {
   useIsAuth();
   const { data, loading, error } = useMeQuery();
+  console.log(error, data, loading);
   return (
     <div>
       {loading && <LoadingSpinner />}
@@ -55,4 +56,4 @@ const Dash: React.FC<DashProps> = () => {
   );
 };
 
-export default withApollo({})(Dash);
+export default withApollo({ ssr: true })(Dash);
