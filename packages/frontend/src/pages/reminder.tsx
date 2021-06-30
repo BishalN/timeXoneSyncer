@@ -12,6 +12,7 @@ import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { withApollo } from "../utils/withApollo";
 import { DateTime } from "luxon";
 import { getUserTimeZone } from "../utils/getUserTime";
+import { useRouter } from "next/router";
 
 const reminder = () => {
   const options = [
@@ -43,28 +44,51 @@ const reminder = () => {
     dateTimeErrorMessage: "",
     zoneErrorMessage: "",
   });
+  const [err, setErr] = useState("");
+  const [resErr, setResErr] = useState("");
+  const router = useRouter();
 
   const handleSetReminder = async () => {
+    //clear all previous errors
+    setErrorMessage({
+      dateTimeErrorMessage: "",
+      titleErrorMessage: "",
+      zoneErrorMessage: "",
+    });
+    setErr("");
+
+    //check if any item is empty
+    if (
+      title.length === 0 ||
+      dateAndTime === null ||
+      dateAndTime?.length === 0 ||
+      !selectedZone.value?.name
+    ) {
+      setErr("All the fields are required");
+      return false;
+    }
     //validation
     if (title.length < 3) {
       setErrorMessage({
         ...errorMessage,
         titleErrorMessage: "title must be atleast 4 character long",
       });
+      return false;
     }
     if (dateAndTime === null) {
       setErrorMessage({
         ...errorMessage,
-        titleErrorMessage: "title must be atleast 4 character long",
         dateTimeErrorMessage:
           "Please set the date so that we know when to remind you",
       });
+      return false;
     }
-    if (!selectedZone.value) {
+    if (!selectedZone.value?.name) {
       setErrorMessage({
         ...errorMessage,
         zoneErrorMessage: "Please select a valid timezone",
       });
+      return false;
     }
 
     const timeOnChosenTimeZone = DateTime.fromISO(dateAndTime, {
@@ -81,6 +105,7 @@ const reminder = () => {
         dateTimeErrorMessage:
           "Invalid time make sure the time is on the future",
       });
+      return false;
     }
 
     const { zoneName } = getUserTimeZone();
@@ -92,16 +117,28 @@ const reminder = () => {
       zoneErrorMessage,
       titleErrorMessage,
     } = errorMessage;
-    console.log(dateTimeErrorMessage, zoneErrorMessage, titleErrorMessage);
     if (
-      dateTimeErrorMessage.length === 0 &&
-      zoneErrorMessage.length === 0 &&
-      titleErrorMessage.length === 0
+      dateTimeErrorMessage.length > 0 ||
+      zoneErrorMessage.length > 0 ||
+      titleErrorMessage.length > 0
     ) {
-      //make a mutation to set the reminder
-      await setReminderMutation({
-        variables: { date: eqTimeOnUsersZone, title },
-      });
+      return false;
+    }
+
+    const { data, errors } = await setReminderMutation({
+      variables: {
+        date: eqTimeOnUsersZone,
+        title,
+        timeZone: selectedZone.label,
+      },
+    });
+
+    if (!errors) {
+      //redirect to the dashboard
+      router.push("/dash");
+    } else {
+      //stores the name of error
+      setResErr(errors.values.name);
     }
   };
 
@@ -142,6 +179,8 @@ const reminder = () => {
 
         {showReminder && (
           <div id="reminderWrapper" className="my-3">
+            {err && <p className="text-xs text-accent">{err}</p>}
+            {resErr && <p className="text-xs text-accent">{resErr}</p>}
             <form action="" className="flex flex-col max-w-md space-y-3">
               <input
                 name="title"
