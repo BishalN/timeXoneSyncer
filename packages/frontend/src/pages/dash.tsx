@@ -2,16 +2,13 @@ import { DateTime } from "luxon";
 import React from "react";
 
 import { useGetMyRemindersQuery, useMeQuery } from "../generated/graphql";
-import { Loading } from "../ui/components/Loading";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { ReminderCard } from "../ui/components/ReminderCard";
 import { Sidebar } from "../ui/components/Sidebar";
 import { useIsAuth } from "../utils/useIsAuth";
 import { withApollo } from "../utils/withApollo";
 
-interface DashProps {}
-
-const Dash: React.FC<DashProps> = () => {
+const Dash: React.FC = () => {
   useIsAuth();
   const { data, loading, error } = useMeQuery();
   const {
@@ -38,7 +35,7 @@ const Dash: React.FC<DashProps> = () => {
                   Welcome {data?.me?.username} !
                 </span>
                 <span className="text-lg text-primary-300">
-                  Recent reminders for you:
+                  Recent reminders set by you:
                 </span>
               </div>
 

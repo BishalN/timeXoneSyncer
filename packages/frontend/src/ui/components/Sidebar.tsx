@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import Logo from "../../icons/logo";
+import { GenericButton } from "./GenericButton";
+import { useRouter } from "next/router";
 
 interface sidebarProps {
   username: string;
@@ -14,6 +16,7 @@ export const Sidebar: React.FC<sidebarProps> = ({
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const router = useRouter();
   return (
     <>
       {!isSidebarOpen && (
@@ -57,8 +60,22 @@ export const Sidebar: React.FC<sidebarProps> = ({
               />
               <span className="capitalize text-xl">{username}</span>
               <p className="self-start mx-4 text-secondary text-xl mt-10">
-                Recent searches
+                Goto:
               </p>
+            </div>
+            <div className="flex flex-col w-1/2 ml-4">
+              <GenericButton
+                title="Sync Time"
+                onClick={() => {
+                  router.push("/sync");
+                }}
+              />
+              <GenericButton
+                title="Set Reminders"
+                onClick={() => {
+                  router.push("/reminder");
+                }}
+              />
             </div>
           </div>
         </div>
