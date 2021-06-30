@@ -18,7 +18,6 @@ export class reminderResolver {
     try {
       const reminder = Reminder.create({
         date,
-        description,
         title,
         user: userId,
       });

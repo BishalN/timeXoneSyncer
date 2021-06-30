@@ -36,7 +36,6 @@ export type Query = {
 export type Reminder = {
   __typename?: 'Reminder';
   title: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
   date: Scalars['String'];
   user?: Maybe<Scalars['String']>;
 };
@@ -51,7 +50,6 @@ export type User = {
 export type SetReminderMutationVariables = Exact<{
   date: Scalars['String'];
   title: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -81,8 +79,8 @@ export type MeQuery = (
 
 
 export const SetReminderDocument = gql`
-    mutation setReminder($date: String!, $title: String!, $description: String) {
-  setReminder(date: $date, title: $title, description: $description)
+    mutation setReminder($date: String!, $title: String!) {
+  setReminder(date: $date, title: $title)
 }
     `;
 export type SetReminderMutationFn = Apollo.MutationFunction<SetReminderMutation, SetReminderMutationVariables>;
@@ -102,7 +100,6 @@ export type SetReminderMutationFn = Apollo.MutationFunction<SetReminderMutation,
  *   variables: {
  *      date: // value for 'date'
  *      title: // value for 'title'
- *      description: // value for 'description'
  *   },
  * });
  */
