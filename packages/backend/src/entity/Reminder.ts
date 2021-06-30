@@ -23,6 +23,10 @@ export class Reminder extends BaseEntity {
   @Column("text")
   date: string;
 
+  @Field()
+  @Column("text")
+  timeZone: string;
+
   @Field((type) => String, { nullable: true })
   @ManyToOne(() => User, (user) => user.reminders)
   user: User;

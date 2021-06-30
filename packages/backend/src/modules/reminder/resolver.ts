@@ -10,8 +10,8 @@ export class reminderResolver {
   })
   async setReminder(
     @Ctx() { req }: MyContext,
-    @Arg("title", { validate: true }) title: string,
-    @Arg("description", { nullable: true }) description: string,
+    @Arg("title") title: string,
+    @Arg("timeZone") timeZone: string,
     @Arg("date") date: string
   ): Promise<boolean> {
     const userId = (req.session as any).userId;
@@ -19,6 +19,7 @@ export class reminderResolver {
       const reminder = Reminder.create({
         date,
         title,
+        timeZone,
         user: userId,
       });
       await reminder.save();
