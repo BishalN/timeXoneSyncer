@@ -16,8 +16,10 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
       <div className="bg-primary-100 rounded-md py-3 px-3 sm:py-6 sm:px-8 w-full">
         <div className="flex items-center justify-between">
           <div className="text-xs sm:text-base">
-            <span>{time}</span>
-            <span className="ml-2 sm:ml-4 text-primary-300">{setDate}</span>
+            <span className="tracking-wide">{time}</span>
+            <span className="ml-2 sm:ml-4 text-primary-300 mr-2">
+              {setDate}
+            </span>
           </div>
           <div className="text-xs sm:text-base">
             <button className="mr-4 text-secondary">Edit</button>

@@ -1,0 +1,8 @@
+query getMyReminders {
+  getMyReminders {
+    title
+    date
+    userSetDate
+    created_at
+  }
+}

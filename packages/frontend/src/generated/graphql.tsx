@@ -12,7 +12,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -22,7 +25,7 @@ export type Mutation = {
 
 export type MutationSetReminderArgs = {
   date: Scalars['String'];
-  timeZone: Scalars['String'];
+  userSetDate: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -37,7 +40,8 @@ export type Reminder = {
   __typename?: 'Reminder';
   title: Scalars['String'];
   date: Scalars['String'];
-  timeZone: Scalars['String'];
+  userSetDate: Scalars['String'];
+  created_at: Scalars['DateTime'];
   user?: Maybe<Scalars['String']>;
 };
 
@@ -51,13 +55,24 @@ export type User = {
 export type SetReminderMutationVariables = Exact<{
   date: Scalars['String'];
   title: Scalars['String'];
-  timeZone: Scalars['String'];
+  userSetDate: Scalars['String'];
 }>;
 
 
 export type SetReminderMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'setReminder'>
+);
+
+export type GetMyRemindersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMyRemindersQuery = (
+  { __typename?: 'Query' }
+  & { getMyReminders?: Maybe<Array<(
+    { __typename?: 'Reminder' }
+    & Pick<Reminder, 'title' | 'date' | 'userSetDate' | 'created_at'>
+  )>> }
 );
 
 export type HelloQueryQueryVariables = Exact<{ [key: string]: never; }>;
@@ -81,8 +96,8 @@ export type MeQuery = (
 
 
 export const SetReminderDocument = gql`
-    mutation setReminder($date: String!, $title: String!, $timeZone: String!) {
-  setReminder(date: $date, title: $title, timeZone: $timeZone)
+    mutation setReminder($date: String!, $title: String!, $userSetDate: String!) {
+  setReminder(date: $date, title: $title, userSetDate: $userSetDate)
 }
     `;
 export type SetReminderMutationFn = Apollo.MutationFunction<SetReminderMutation, SetReminderMutationVariables>;
@@ -102,7 +117,7 @@ export type SetReminderMutationFn = Apollo.MutationFunction<SetReminderMutation,
  *   variables: {
  *      date: // value for 'date'
  *      title: // value for 'title'
- *      timeZone: // value for 'timeZone'
+ *      userSetDate: // value for 'userSetDate'
  *   },
  * });
  */
@@ -113,6 +128,43 @@ export function useSetReminderMutation(baseOptions?: Apollo.MutationHookOptions<
 export type SetReminderMutationHookResult = ReturnType<typeof useSetReminderMutation>;
 export type SetReminderMutationResult = Apollo.MutationResult<SetReminderMutation>;
 export type SetReminderMutationOptions = Apollo.BaseMutationOptions<SetReminderMutation, SetReminderMutationVariables>;
+export const GetMyRemindersDocument = gql`
+    query getMyReminders {
+  getMyReminders {
+    title
+    date
+    userSetDate
+    created_at
+  }
+}
+    `;
+
+/**
+ * __useGetMyRemindersQuery__
+ *
+ * To run a query within a React component, call `useGetMyRemindersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyRemindersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyRemindersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMyRemindersQuery(baseOptions?: Apollo.QueryHookOptions<GetMyRemindersQuery, GetMyRemindersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMyRemindersQuery, GetMyRemindersQueryVariables>(GetMyRemindersDocument, options);
+      }
+export function useGetMyRemindersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMyRemindersQuery, GetMyRemindersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMyRemindersQuery, GetMyRemindersQueryVariables>(GetMyRemindersDocument, options);
+        }
+export type GetMyRemindersQueryHookResult = ReturnType<typeof useGetMyRemindersQuery>;
+export type GetMyRemindersLazyQueryHookResult = ReturnType<typeof useGetMyRemindersLazyQuery>;
+export type GetMyRemindersQueryResult = Apollo.QueryResult<GetMyRemindersQuery, GetMyRemindersQueryVariables>;
 export const HelloQueryDocument = gql`
     query helloQuery {
   hello

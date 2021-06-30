@@ -95,6 +95,13 @@ const reminder = () => {
       zone: selectedZone.value?.name,
     });
 
+    const month = timeOnChosenTimeZone
+      .toLocaleString(DateTime.DATE_FULL)
+      .split(",")[0];
+    const time = timeOnChosenTimeZone.toLocaleString(DateTime.TIME_SIMPLE);
+    const zone = selectedZone.value?.name;
+    const userSetDate = `${month},${"  "}${time}${"  "}${zone}`;
+
     //make sure the chosen time is on the future
     //1 min ahead from now
     //diffnow and value of returns the diff in milliseconds
@@ -129,7 +136,7 @@ const reminder = () => {
       variables: {
         date: eqTimeOnUsersZone,
         title,
-        timeZone: selectedZone.label,
+        userSetDate,
       },
     });
 

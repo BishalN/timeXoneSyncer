@@ -1,4 +1,3 @@
-import { MaxLength, MinLength } from "class-validator";
 import { Field, ObjectType } from "type-graphql";
 import {
   Entity,
@@ -6,6 +5,7 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  CreateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 
@@ -25,7 +25,11 @@ export class Reminder extends BaseEntity {
 
   @Field()
   @Column("text")
-  timeZone: string;
+  userSetDate: string;
+
+  @Field()
+  @CreateDateColumn()
+  created_at: Date;
 
   @Field((type) => String, { nullable: true })
   @ManyToOne(() => User, (user) => user.reminders)

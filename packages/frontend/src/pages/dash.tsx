@@ -1,6 +1,8 @@
+import { DateTime } from "luxon";
 import React from "react";
 
-import { useMeQuery } from "../generated/graphql";
+import { useGetMyRemindersQuery, useMeQuery } from "../generated/graphql";
+import { Loading } from "../ui/components/Loading";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { ReminderCard } from "../ui/components/ReminderCard";
 import { Sidebar } from "../ui/components/Sidebar";
@@ -12,7 +14,12 @@ interface DashProps {}
 const Dash: React.FC<DashProps> = () => {
   useIsAuth();
   const { data, loading, error } = useMeQuery();
-  console.log(error, data, loading);
+  const {
+    data: myReminders,
+    error: reminderError,
+    loading: reminderLoading,
+  } = useGetMyRemindersQuery();
+
   return (
     <div>
       {loading && <LoadingSpinner />}
@@ -35,18 +42,20 @@ const Dash: React.FC<DashProps> = () => {
                 </span>
               </div>
 
-              <div className="space-y-4">
-                <ReminderCard
-                  time="1st Feb, 10am NYC"
-                  setDate="set on last friday"
-                  description="Meeting with NYC client about recommendation system for MLBMS"
-                />
+              {reminderLoading && <LoadingSpinner />}
 
-                <ReminderCard
-                  time="3rd Feb, 12am WDC"
-                  setDate="set on last wednesday"
-                  description="Meeting with WDC client about recommendation system for lkm"
-                />
+              <div className="space-y-4">
+                {myReminders?.getMyReminders.map((reminder) => {
+                  const dt = DateTime.fromISO(reminder.created_at);
+                  return (
+                    <ReminderCard
+                      key={reminder.created_at}
+                      time={reminder.userSetDate}
+                      setDate={`set ${dt.toRelative()}`}
+                      description={reminder.title}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

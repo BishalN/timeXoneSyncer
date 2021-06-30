@@ -11,7 +11,7 @@ export class reminderResolver {
   async setReminder(
     @Ctx() { req }: MyContext,
     @Arg("title") title: string,
-    @Arg("timeZone") timeZone: string,
+    @Arg("userSetDate") userSetDate: string,
     @Arg("date") date: string
   ): Promise<boolean> {
     const userId = (req.session as any).userId;
@@ -19,8 +19,8 @@ export class reminderResolver {
       const reminder = Reminder.create({
         date,
         title,
-        timeZone,
         user: userId,
+        userSetDate,
       });
       await reminder.save();
       return true;
@@ -37,6 +37,7 @@ export class reminderResolver {
       where: { user: (req.session as any).userId },
     });
 
+    console.log(reminders);
     return reminders;
   }
 }

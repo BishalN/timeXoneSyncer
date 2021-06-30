@@ -1,3 +1,3 @@
-mutation setReminder($date: String!, $title: String!, $timeZone: String!) {
-  setReminder(date: $date, title: $title, timeZone: $timeZone)
+mutation setReminder($date: String!, $title: String!, $userSetDate: String!) {
+  setReminder(date: $date, title: $title, userSetDate: $userSetDate)
 }
