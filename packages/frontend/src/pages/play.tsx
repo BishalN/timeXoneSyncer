@@ -1,17 +1,11 @@
+import { DateTime } from "luxon";
 import React, { useEffect } from "react";
-import { webPushPublicVapidKey } from "../utils/cred";
-import firebase from "../utils/initFirebase";
 
 const play = () => {
-  useEffect(() => {
-    const getToken = async () => {
-      const messaging = firebase.messaging();
-      //make a call to the backend and store the userNotification Token in database
-
-      console.log(messaging.getToken({ vapidKey: webPushPublicVapidKey }));
-    };
-    getToken();
-  }, []);
+  const date = new Date("2021-07-01T18:43:00.000+05:45");
+  const dt = DateTime.fromJSDate(date);
+  console.log((dt as any).ts);
+  console.log(date);
   return <h1>hello</h1>;
 };
 

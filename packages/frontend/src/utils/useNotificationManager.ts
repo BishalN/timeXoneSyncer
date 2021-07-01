@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import {
   askForNotificationPermission,
   checkIfFeatureSupported,
@@ -10,32 +11,41 @@ export const useNotificationManager = async (reminders) => {
   checkIfFeatureSupported();
   registerServiceWorker();
   askForNotificationPermission();
-  console.log(reminders);
   const scheduledNotifications = await getScheduledNotifications();
-  if (scheduledNotifications.length === 0) {
+
+  if (scheduledNotifications?.length === 0) {
     for (let reminder of reminders) {
+      const date = new Date(reminder.date);
+      const dt: any = DateTime.fromJSDate(date);
       const notificationTitleText = `Get Ready for ${reminder.title}`;
       await createScheduledNotification(
         reminder.id,
         notificationTitleText,
         `It's ${reminder.userSetDate} ${reminder.title}`,
-        new Date(reminder.date)
+        dt.ts
       );
     }
   }
-  if (reminders?.length > 1) {
-    for (let reminder of reminders) {
-      for (let scheduledNotification of scheduledNotifications) {
-        if (reminder.id !== scheduledNotification.tag) {
-          const notificationTitleText = `Get Ready for ${reminder.title}`;
-          await createScheduledNotification(
-            reminder.id,
-            notificationTitleText,
-            `It's ${reminder.userSetDate} ${reminder.title}`,
-            new Date(reminder.date)
-          );
-        }
+
+  for (let reminder of reminders) {
+    let isRegistered = false;
+    for (let notification of scheduledNotifications) {
+      if (reminder.id === notification.tag) {
+        //reminder is already registered
+        isRegistered = true;
       }
+    }
+    //a reminder is not registered so register it
+    if (!isRegistered) {
+      const date = new Date(reminder.date);
+      const dt: any = DateTime.fromJSDate(date);
+      const notificationTitleText = `Get Ready for ${reminder.title}`;
+      await createScheduledNotification(
+        reminder.id,
+        notificationTitleText,
+        `It's ${reminder.userSetDate} ${reminder.title}`,
+        dt.ts
+      );
     }
   }
 };

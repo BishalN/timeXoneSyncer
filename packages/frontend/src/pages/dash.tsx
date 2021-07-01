@@ -21,11 +21,9 @@ const Dash: React.FC = () => {
     loading: reminderLoading,
   } = useGetMyRemindersQuery();
 
-  useEffect(() => {
-    if (myReminders?.getMyReminders?.length > 1) {
-      useNotificationManager(myReminders?.getMyReminders);
-    }
-  }, [myReminders]);
+  if (myReminders?.getMyReminders?.length !== 0) {
+    useNotificationManager(myReminders?.getMyReminders);
+  }
 
   return (
     <div>
