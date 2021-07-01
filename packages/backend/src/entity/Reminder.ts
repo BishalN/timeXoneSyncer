@@ -12,6 +12,7 @@ import { User } from "./User";
 @ObjectType()
 @Entity()
 export class Reminder extends BaseEntity {
+  @Field()
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

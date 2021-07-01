@@ -38,6 +38,7 @@ export type Query = {
 
 export type Reminder = {
   __typename?: 'Reminder';
+  id: Scalars['String'];
   title: Scalars['String'];
   date: Scalars['String'];
   userSetDate: Scalars['String'];
@@ -71,7 +72,7 @@ export type GetMyRemindersQuery = (
   { __typename?: 'Query' }
   & { getMyReminders?: Maybe<Array<(
     { __typename?: 'Reminder' }
-    & Pick<Reminder, 'title' | 'date' | 'userSetDate' | 'created_at'>
+    & Pick<Reminder, 'id' | 'title' | 'date' | 'userSetDate' | 'created_at'>
   )>> }
 );
 
@@ -131,6 +132,7 @@ export type SetReminderMutationOptions = Apollo.BaseMutationOptions<SetReminderM
 export const GetMyRemindersDocument = gql`
     query getMyReminders {
   getMyReminders {
+    id
     title
     date
     userSetDate

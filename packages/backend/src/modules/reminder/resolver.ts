@@ -36,8 +36,6 @@ export class reminderResolver {
     const reminders = await Reminder.find({
       where: { user: (req.session as any).userId },
     });
-
-    console.log(reminders);
     return reminders;
   }
 }

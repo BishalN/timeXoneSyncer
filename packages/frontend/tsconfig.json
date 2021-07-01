@@ -19,7 +19,9 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/index.story.tsx",
-    "firebase-messaging-sw.js"
+    "firebase-messaging-sw.js",
+    "src/utils/createScheduleNotifications.js",
+    "public/serviceworker.js"
   ],
   "exclude": ["node_modules"]
 }

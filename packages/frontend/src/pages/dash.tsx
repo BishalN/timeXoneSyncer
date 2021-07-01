@@ -1,21 +1,31 @@
 import { DateTime } from "luxon";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 import { useGetMyRemindersQuery, useMeQuery } from "../generated/graphql";
+import { GenericButton } from "../ui/components/GenericButton";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { ReminderCard } from "../ui/components/ReminderCard";
 import { Sidebar } from "../ui/components/Sidebar";
 import { useIsAuth } from "../utils/useIsAuth";
+import { useNotificationManager } from "../utils/useNotificationManager";
 import { withApollo } from "../utils/withApollo";
 
 const Dash: React.FC = () => {
   useIsAuth();
   const { data, loading, error } = useMeQuery();
+  const router = useRouter();
   const {
     data: myReminders,
     error: reminderError,
     loading: reminderLoading,
   } = useGetMyRemindersQuery();
+
+  useEffect(() => {
+    if (myReminders?.getMyReminders?.length > 1) {
+      useNotificationManager(myReminders?.getMyReminders);
+    }
+  }, [myReminders]);
 
   return (
     <div>
@@ -42,6 +52,12 @@ const Dash: React.FC = () => {
               {reminderLoading && <LoadingSpinner />}
 
               <div className="space-y-4">
+                {myReminders?.getMyReminders.length === 0 && (
+                  <GenericButton
+                    title="Set reminders now"
+                    onClick={() => router.push("/reminder")}
+                  />
+                )}
                 {myReminders?.getMyReminders.map((reminder) => {
                   const dt = DateTime.fromISO(reminder.created_at);
                   return (
