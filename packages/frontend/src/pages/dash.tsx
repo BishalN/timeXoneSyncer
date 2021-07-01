@@ -19,7 +19,7 @@ const Dash: React.FC = () => {
     data: myReminders,
     error: reminderError,
     loading: reminderLoading,
-  } = useGetMyRemindersQuery();
+  } = useGetMyRemindersQuery({ fetchPolicy: "network-only" });
 
   if (myReminders?.getMyReminders?.length !== 0) {
     useNotificationManager(myReminders?.getMyReminders);
@@ -64,6 +64,7 @@ const Dash: React.FC = () => {
                       time={reminder.userSetDate}
                       setDate={`set ${dt.toRelative()}`}
                       description={reminder.title}
+                      userRemindingTime={reminder.date}
                     />
                   );
                 })}
