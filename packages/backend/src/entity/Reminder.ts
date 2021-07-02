@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, ObjectType } from 'type-graphql';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,26 +6,26 @@ import {
   BaseEntity,
   ManyToOne,
   CreateDateColumn,
-} from "typeorm";
-import { User } from "./User";
+} from 'typeorm';
+import { User } from './User';
 
 @ObjectType()
 @Entity()
 export class Reminder extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Field()
-  @Column("text")
+  @Column('text')
   title: string;
 
   @Field()
-  @Column("text")
+  @Column('text')
   date: string;
 
   @Field()
-  @Column("text")
+  @Column('text')
   userSetDate: string;
 
   @Field()
@@ -34,5 +34,5 @@ export class Reminder extends BaseEntity {
 
   @Field((type) => String, { nullable: true })
   @ManyToOne(() => User, (user) => user.reminders)
-  user: User;
+  public user: User;
 }
