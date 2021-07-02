@@ -20,6 +20,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   setReminder?: Maybe<Scalars['Boolean']>;
+  deleteReminder?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -27,6 +28,11 @@ export type MutationSetReminderArgs = {
   date: Scalars['String'];
   userSetDate: Scalars['String'];
   title: Scalars['String'];
+};
+
+
+export type MutationDeleteReminderArgs = {
+  id: Scalars['String'];
 };
 
 export type Query = {
@@ -52,6 +58,16 @@ export type User = {
   email?: Maybe<Scalars['String']>;
   profilePicture: Scalars['String'];
 };
+
+export type DeleteReminderMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteReminderMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteReminder'>
+);
 
 export type SetReminderMutationVariables = Exact<{
   date: Scalars['String'];
@@ -96,6 +112,37 @@ export type MeQuery = (
 );
 
 
+export const DeleteReminderDocument = gql`
+    mutation deleteReminder($id: String!) {
+  deleteReminder(id: $id)
+}
+    `;
+export type DeleteReminderMutationFn = Apollo.MutationFunction<DeleteReminderMutation, DeleteReminderMutationVariables>;
+
+/**
+ * __useDeleteReminderMutation__
+ *
+ * To run a mutation, you first call `useDeleteReminderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteReminderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteReminderMutation, { data, loading, error }] = useDeleteReminderMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteReminderMutation(baseOptions?: Apollo.MutationHookOptions<DeleteReminderMutation, DeleteReminderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteReminderMutation, DeleteReminderMutationVariables>(DeleteReminderDocument, options);
+      }
+export type DeleteReminderMutationHookResult = ReturnType<typeof useDeleteReminderMutation>;
+export type DeleteReminderMutationResult = Apollo.MutationResult<DeleteReminderMutation>;
+export type DeleteReminderMutationOptions = Apollo.BaseMutationOptions<DeleteReminderMutation, DeleteReminderMutationVariables>;
 export const SetReminderDocument = gql`
     mutation setReminder($date: String!, $title: String!, $userSetDate: String!) {
   setReminder(date: $date, title: $title, userSetDate: $userSetDate)
@@ -235,3 +282,14 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const namedOperations = {
+  Query: {
+    getMyReminders: 'getMyReminders',
+    helloQuery: 'helloQuery',
+    Me: 'Me'
+  },
+  Mutation: {
+    deleteReminder: 'deleteReminder',
+    setReminder: 'setReminder'
+  }
+}

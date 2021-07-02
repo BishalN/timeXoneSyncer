@@ -60,7 +60,8 @@ const Dash: React.FC = () => {
                   const dt = DateTime.fromISO(reminder.created_at);
                   return (
                     <ReminderCard
-                      key={reminder.created_at}
+                      id={reminder.id}
+                      key={reminder.id}
                       time={reminder.userSetDate}
                       setDate={`set ${dt.toRelative()}`}
                       description={reminder.title}

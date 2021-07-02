@@ -1,7 +1,13 @@
-import { DateTime } from "luxon";
-import React, { useState } from "react";
+import gql from "graphql-tag";
+import React, { useEffect, useState } from "react";
+import {
+  GetMyRemindersDocument,
+  useDeleteReminderMutation,
+  useGetMyRemindersQuery,
+} from "../../generated/graphql";
 
 interface ReminderCardProps {
+  id: string;
   time: string;
   setDate: string;
   description: string;
@@ -13,7 +19,12 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
   setDate,
   time,
   userRemindingTime,
+  id,
 }) => {
+  const [
+    deleteReminderMutation,
+    { data, error, loading },
+  ] = useDeleteReminderMutation({});
   //find out whether the reminder is stale by now
   //user reminding time will help us do that since it will be in
   const remindingDate = new Date(userRemindingTime);
@@ -28,6 +39,7 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
 
   return (
     <div id="reminderCardWrapper" className="my-1 w-full">
+      {loading && "deleting the reminder"}
       <div className="bg-primary-100 rounded-md py-3 px-3 sm:py-6 sm:px-8 w-full">
         <div className="flex items-center justify-between">
           <div className="text-xs sm:text-base">
@@ -38,10 +50,18 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
               {setDate}
             </span>
           </div>
-          <div className="text-xs sm:text-base flex ">
-            <button className="mr-4 text-secondary">Edit</button>
-            <button className="text-accent">Delete</button>
-          </div>
+          <button
+            className="text-accent"
+            onClick={() => {
+              deleteReminderMutation({
+                variables: { id },
+                //refetch the getmyreminderdocument
+                refetchQueries: [{ query: GetMyRemindersDocument }],
+              });
+            }}
+          >
+            Delete
+          </button>
         </div>
         <div className="pt-3 text-primary-300 text-sm sm:text-base">
           {description}
