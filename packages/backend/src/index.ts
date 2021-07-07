@@ -17,6 +17,8 @@ import { meResolver } from "./modules/me/resolver";
 import { customAuthChecker } from "./utils/isAuthenticated";
 import { reminderResolver } from "./modules/reminder/resolver";
 
+//this is the most amazing setup of the wolrd
+
 config();
 const RedisStore = connectRedis(session as any);
 
