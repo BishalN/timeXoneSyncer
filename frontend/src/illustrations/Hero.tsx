@@ -4,6 +4,7 @@ export function HeroSVGMobile() {
   return (
     <svg
       viewBox="-20 -9 370 290"
+      className="sm:block max-w-md sm:max-h-200"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="TimeZone Syncer illustrating value proposition"

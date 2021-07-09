@@ -20,7 +20,10 @@ export default function landing() {
         {/* Hero section */}
 
         <section id="HeroSection">
-          <div id="sectionWrapper" className="sm:flex sm:flex-row-reverse  ">
+          <div
+            id="sectionWrapper"
+            className="sm:flex sm:flex-row-reverse sm:justify-between"
+          >
             <HeroSVGMobile />
             <div className="mx-2 sm:my-16 sm:space-y-4 lg:space-y-5 lg:mr-32 lg:mt-40">
               <h1 className="text-secondary italic text-4xl sm:text-5xl lg:text-6xl">
@@ -35,32 +38,34 @@ export default function landing() {
           </div>
         </section>
 
-        <BenefitSection
-          title="How much of my business hour overlaps with my clients?"
-          SvgElement={Benefit1SVG}
-          description="With TimeXoneSyncer you can map your business hours with any
+        <section id="benefit" className="space-y-32">
+          <BenefitSection
+            title="How much of my business hour overlaps with my clients?"
+            SvgElement={Benefit1SVG}
+            description="With TimeXoneSyncer you can map your business hours with any
       timezones around the world you don’t event need to know which
       timezone just the name of place and you’re good to go"
-          isLeft={true}
-        />
-        <BenefitSection
-          title="What’s the current time in Butwal, Nepal?"
-          SvgElement={Benefit2SVG}
-          isLeft={false}
-          description="With TimeXoneSyncer you can query for the current time in any part of the earth with 99.99% accuracy"
-        />
+            isLeft={true}
+          />
+          <BenefitSection
+            title="What’s the current time in Butwal, Nepal?"
+            SvgElement={Benefit2SVG}
+            isLeft={false}
+            description="With TimeXoneSyncer you can query for the current time in any part of the earth with 99.99% accuracy"
+          />
 
-        <BenefitSection
-          title="Want to set the reminder?"
-          isLeft={true}
-          SvgElement={Benefit3SVG}
-          description="With TimeXoneSyncer you can set the reminder for particular time of another timezone in your own time you will be notified with email and push notification"
-        />
+          <BenefitSection
+            title="Want to set the reminder?"
+            isLeft={true}
+            SvgElement={Benefit3SVG}
+            description="With TimeXoneSyncer you can set the reminder for particular time of another timezone in your own time you will be notified with email and push notification"
+          />
+        </section>
 
         <section id="testimonialSection">
-          <div className="flex justify-center items-center mt-10">
+          <div className="flex justify-center items-center mt-32">
             <h3 className="text-secondary text-center leading-7">
-              Over 10,000 satisfied customers
+              What do TimeXoneSyncer user say about it?
             </h3>
           </div>
 

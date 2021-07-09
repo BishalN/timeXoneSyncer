@@ -16,7 +16,6 @@ import { helloResolver } from "./modules/dummy/resolver";
 import { meResolver } from "./modules/me/resolver";
 import { customAuthChecker } from "./utils/isAuthenticated";
 import { reminderResolver } from "./modules/reminder/resolver";
-import { subscriptionResolver } from "./modules/subscription/resolver";
 
 config();
 const RedisStore = connectRedis(session as any);
@@ -49,12 +48,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [
-        helloResolver,
-        meResolver,
-        reminderResolver,
-        subscriptionResolver,
-      ],
+      resolvers: [helloResolver, meResolver, reminderResolver],
       authChecker: customAuthChecker,
     }),
     context: ({ req, res }: any) => ({
