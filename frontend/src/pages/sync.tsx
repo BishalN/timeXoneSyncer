@@ -39,7 +39,6 @@ const sync: React.FC = ({}) => {
           </div>
           <SyncSvg />
         </div>
-
         <Selector />
       </Container>
     </div>

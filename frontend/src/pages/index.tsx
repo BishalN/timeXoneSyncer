@@ -1,4 +1,8 @@
 import React from "react";
+import ct from "countries-and-timezones";
+import { getName as getNameOfCountry } from "country-list";
+import Flag from "react-country-flag";
+
 import Container from "../ui/components/Container";
 import { MainCTA } from "../ui/components/MainCTA";
 import { HeroSVGMobile } from "../illustrations/Hero";
@@ -10,8 +14,24 @@ import { BenefitSection } from "../ui/components/BenefitSection";
 import { TestimonialCard } from "../ui/components/TestimonialCard";
 import Link from "next/link";
 import { Footer } from "../ui/components/Footer";
+import { getCurrentTimeByZone } from "../utils/getUserTime";
+import { GenericButton } from "../ui/components/GenericButton";
+import { useRouter } from "next/router";
 
 export default function landing() {
+  const router = useRouter();
+  const timeZones = ct.getAllTimezones();
+  const timezoneArr = [];
+  let counter = 0;
+  for (let timezone in timeZones) {
+    if (timeZones[timezone].country) {
+      let label =
+        getNameOfCountry(timeZones[timezone].country) + " " + timezone;
+      timezoneArr.push({ label, value: timeZones[timezone] });
+    }
+    counter++;
+    if (counter > 10) break;
+  }
   return (
     <>
       <Container>
@@ -43,26 +63,25 @@ export default function landing() {
             title="How much of my business hour overlaps with my clients?"
             SvgElement={Benefit1SVG}
             description="With TimeXoneSyncer you can map your business hours with any
-      timezones around the world you don’t event need to know which
-      timezone just the name of place and you’re good to go"
+      timezones around the world"
             isLeft={true}
           />
           <BenefitSection
             title="What’s the current time in Butwal, Nepal?"
             SvgElement={Benefit2SVG}
             isLeft={false}
-            description="With TimeXoneSyncer you can query for the current time in any part of the earth with 99.99% accuracy"
+            description="With TimeXoneSyncer you can query for the current time in any part of the earth with 99% accuracy"
           />
 
           <BenefitSection
             title="Want to set the reminder?"
             isLeft={true}
             SvgElement={Benefit3SVG}
-            description="With TimeXoneSyncer you can set the reminder for particular time of another timezone in your own time you will be notified with email and push notification"
+            description="With TimeXoneSyncer you can set the reminder for particular time of another timezone in your own time"
           />
         </section>
 
-        <section id="testimonialSection">
+        <section id="testimonialSection" className="mb-10">
           <div className="flex justify-center items-center mt-32">
             <h3 className="text-secondary text-center leading-7">
               What do TimeXoneSyncer user say about it?
@@ -107,6 +126,57 @@ export default function landing() {
                 See all testimonials
               </a>
             </Link>
+          </div>
+        </section>
+
+        <section id="supportedZoneSection">
+          <div>
+            <h3 className="text-secondary text-center leading-7 mt-16 mb-5">
+              Some of the supported timezones
+            </h3>
+          </div>
+          <div
+            id="supportedZoneWrapper"
+            className="flex flex-wrap item-center mb-5"
+          >
+            {timezoneArr.map((timezone) => {
+              const { dayOfWeek, simpleTime } = getCurrentTimeByZone(
+                timezone.value.name
+              );
+              return (
+                <div
+                  key={timezone.label}
+                  className="bg-primary-100 mx-2 my-2 
+              text-primary-300 rounded-lg max-w-sm  px-4 pb-2 py-3"
+                >
+                  <div className="absolute mr-2">
+                    <Flag
+                      countryCode={timezone.value?.country}
+                      svg
+                      style={{
+                        width: "2em",
+                        height: "2em",
+                      }}
+                      title={timezone.value.country}
+                    />
+                  </div>
+                  <div className="ml-9">
+                    <span>
+                      {timezone.label}, UTC {timezone.value.utcOffsetStr}
+                    </span>
+                    <p className="text-primary-600">
+                      {simpleTime} {dayOfWeek}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mb-32">
+            <GenericButton
+              title="See all supported timezones"
+              onClick={() => router.push("/all")}
+            />
           </div>
         </section>
       </Container>

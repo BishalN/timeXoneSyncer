@@ -1,8 +1,10 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function Logo(props: React.SVGProps<SVGAElement>) {
+  const router = useRouter();
   return (
-    <div>
+    <div className="cursor-pointer" onClick={() => router.push("/")}>
       <svg
         width="97"
         height="51"
