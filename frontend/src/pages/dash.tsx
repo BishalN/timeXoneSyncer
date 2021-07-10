@@ -1,12 +1,15 @@
 import { DateTime } from "luxon";
 import { useRouter } from "next/router";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 import { useGetMyRemindersQuery, useMeQuery } from "../generated/graphql";
 import { GenericButton } from "../ui/components/GenericButton";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { ReminderCard } from "../ui/components/ReminderCard";
 import { Sidebar } from "../ui/components/Sidebar";
+import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/useIsAuth";
 import { useNotificationManager } from "../utils/useNotificationManager";
 import { withApollo } from "../utils/withApollo";
@@ -22,8 +25,22 @@ const Dash: React.FC = () => {
   } = useGetMyRemindersQuery({ fetchPolicy: "network-only" });
 
   if (myReminders?.getMyReminders?.length !== 0) {
-    // useNotificationManager(myReminders?.getMyReminders);
+    useNotificationManager(myReminders?.getMyReminders);
   }
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) {
+      setMessage(
+        "we won't be able to notify you as Your browser does not support service worker"
+      );
+    }
+    if (!("showTrigger" in Notification.prototype)) {
+      setMessage(
+        "We won't be able to notify as You need a browser with Notification Triggers support"
+      );
+    }
+  });
 
   return (
     <div>
@@ -32,6 +49,7 @@ const Dash: React.FC = () => {
       {!loading && (
         <div className="flex flex-col md:flex-row">
           <Sidebar
+            message={message}
             username={data?.me?.username}
             profilePictureUri={data?.me?.profilePicture}
           />
@@ -78,4 +96,4 @@ const Dash: React.FC = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Dash);
+export default withApollo({})(Dash);

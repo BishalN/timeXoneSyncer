@@ -164,6 +164,12 @@ const reminder = () => {
             alt={data.me.username}
           />
         </div>
+        <div className="mt-4">
+          <GenericButton
+            title="Go back to dashboard"
+            onClick={() => router.push("/dash")}
+          />
+        </div>
         <div
           id="welcomeContentWrapper"
           className="mx-2 mt-10 xl:mt-16 text-primary-600

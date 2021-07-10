@@ -8,11 +8,13 @@ import { useRouter } from "next/router";
 interface sidebarProps {
   username: string;
   profilePictureUri: string;
+  message?: string;
 }
 
 export const Sidebar: React.FC<sidebarProps> = ({
   profilePictureUri,
   username,
+  message,
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -63,7 +65,7 @@ export const Sidebar: React.FC<sidebarProps> = ({
                 Goto:
               </p>
             </div>
-            <div className="flex flex-col w-1/2 ml-4">
+            <div className="flex flex-col ml-4 justify-between">
               <GenericButton
                 title="Sync Time"
                 onClick={() => {
@@ -76,6 +78,22 @@ export const Sidebar: React.FC<sidebarProps> = ({
                   router.push("/reminder");
                 }}
               />
+              {message.length > 1 ? (
+                <div>
+                  <p className="self-end text-accent text-sm mt-10">
+                    {message}
+                  </p>
+                  <a
+                    href="https://web.dev/notification-triggers/"
+                    target="_blank"
+                    className="hover:text-accent text-secondary"
+                  >
+                    Enable notification trigger to be notified
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

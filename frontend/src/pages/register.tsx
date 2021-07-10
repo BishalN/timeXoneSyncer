@@ -3,10 +3,10 @@ import Container from "../ui/components/Container";
 import { Footer } from "../ui/components/Footer";
 import { NavBar } from "../ui/components/NavBar";
 
-import { AiOutlineGoogle, AiOutlineTwitter } from "react-icons/ai";
+import { AiOutlineGoogle } from "react-icons/ai";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
 import { Button } from "../ui/components/Button";
-import { FacebookIcon } from "../icons/social";
+import { withApollo } from "../utils/withApollo";
 
 interface registerProps {}
 
@@ -56,4 +56,4 @@ const register: React.FC<registerProps> = ({}) => {
   );
 };
 
-export default register;
+export default withApollo({})(register);

@@ -10,12 +10,14 @@ import { isServer } from "./isServer";
 
 export const useNotificationManager = async (reminders) => {
   if (!isServer) {
-    checkIfFeatureSupported();
+    const { stat, message } = checkIfFeatureSupported();
+    //if not supported get out
+    if (!stat) return;
     registerServiceWorker();
     askForNotificationPermission();
     const scheduledNotifications = await getScheduledNotifications();
 
-    if (scheduledNotifications?.length === 0) {
+    if (scheduledNotifications?.length === 0 && reminders?.length > 0) {
       for (let reminder of reminders) {
         const date = new Date(reminder.date);
         const dt: any = DateTime.fromJSDate(date);
@@ -52,5 +54,6 @@ export const useNotificationManager = async (reminders) => {
         }
       }
     }
+    return { message };
   }
 };

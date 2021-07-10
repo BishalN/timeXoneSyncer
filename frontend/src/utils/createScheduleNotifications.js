@@ -34,15 +34,16 @@ export const cancelScheduledNotification = async (tag) => {
 export const checkIfFeatureSupported = () => {
   if (!isServer) {
     if (!("serviceWorker" in navigator)) {
-      return alert(
-        "You need a browser that supports service workers for this demo to work."
-      );
+      return { stat: false, message: "Service worker not supported" };
     }
     if (!("showTrigger" in Notification.prototype)) {
-      return alert(
-        "You need a browser with Notification Triggers support for Notification to be shown"
-      );
+      return {
+        stat: false,
+        message:
+          "You need a browser with Notification Triggers support for Notification to be shown",
+      };
     }
+    return { message: "Good to go", stat: true };
   }
 };
 
