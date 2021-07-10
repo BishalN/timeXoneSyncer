@@ -9,6 +9,7 @@ export class meResolver {
     nullable: true,
   })
   async me(@Ctx() { req }: MyContext): Promise<any> {
+    console.log("here we are");
     return User.findOne((req.session as any)!.userId);
   }
 }

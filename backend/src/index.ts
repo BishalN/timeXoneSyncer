@@ -63,7 +63,10 @@ const main = async () => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: { origin: "http://localhost:3000", credentials: true },
+    cors: {
+      origin: "https://time-xone-syncer.vercel.app",
+      credentials: true,
+    },
   });
 
   app.listen(process.env.PORT || 4000, () => {
@@ -72,3 +75,4 @@ const main = async () => {
 };
 
 main();
+//

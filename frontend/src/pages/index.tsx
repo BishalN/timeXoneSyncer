@@ -17,8 +17,10 @@ import { Footer } from "../ui/components/Footer";
 import { getCurrentTimeByZone } from "../utils/getUserTime";
 import { GenericButton } from "../ui/components/GenericButton";
 import { useRouter } from "next/router";
+import { useCheckIfAlreadyLogin } from "../utils/useCheckIfAlreadyLogin";
 
 export default function landing() {
+  useCheckIfAlreadyLogin();
   const router = useRouter();
   const timeZones = ct.getAllTimezones();
   const timezoneArr = [];

@@ -1,7 +1,7 @@
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
-import { MyContext } from '../../types/MyContext';
-import { Reminder } from '../../entity/Reminder';
-import { getConnection } from 'typeorm';
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { MyContext } from "../../types/MyContext";
+import { Reminder } from "../../entity/Reminder";
+import { getConnection } from "typeorm";
 
 @Resolver()
 export class reminderResolver {
@@ -11,9 +11,9 @@ export class reminderResolver {
   })
   async setReminder(
     @Ctx() { req }: MyContext,
-    @Arg('title') title: string,
-    @Arg('userSetDate') userSetDate: string,
-    @Arg('date') date: string
+    @Arg("title") title: string,
+    @Arg("userSetDate") userSetDate: string,
+    @Arg("date") date: string
   ): Promise<boolean> {
     const userId = (req.session as any).userId;
     try {
@@ -41,15 +41,15 @@ export class reminderResolver {
 
   @Authorized()
   @Mutation((type) => Boolean, { nullable: true })
-  async deleteReminder(@Arg('id') id: string, @Ctx() { req }: MyContext) {
+  async deleteReminder(@Arg("id") id: string, @Ctx() { req }: MyContext) {
     const reminder = await getConnection()
-      .createQueryBuilder(Reminder, 'reminder')
-      .leftJoinAndSelect('reminder.user', 'user')
-      .where('reminder.id =:id', { id })
+      .createQueryBuilder(Reminder, "reminder")
+      .leftJoinAndSelect("reminder.user", "user")
+      .where("reminder.id =:id", { id })
       .getOne();
 
     if (!reminder) {
-      throw new Error('Reminder not found');
+      throw new Error("Reminder not found");
     }
 
     //check if the user who is making request owns the reminder
@@ -57,7 +57,7 @@ export class reminderResolver {
       await Reminder.delete({ id });
       return true;
     } else {
-      throw new Error('Unauthorized');
+      throw new Error("Unauthorized");
     }
   }
 }

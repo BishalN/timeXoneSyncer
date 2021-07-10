@@ -9,7 +9,6 @@ import { GenericButton } from "../ui/components/GenericButton";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { ReminderCard } from "../ui/components/ReminderCard";
 import { Sidebar } from "../ui/components/Sidebar";
-import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/useIsAuth";
 import { useNotificationManager } from "../utils/useNotificationManager";
 import { withApollo } from "../utils/withApollo";
@@ -17,6 +16,7 @@ import { withApollo } from "../utils/withApollo";
 const Dash: React.FC = () => {
   useIsAuth();
   const { data, loading, error } = useMeQuery();
+
   const router = useRouter();
   const {
     data: myReminders,

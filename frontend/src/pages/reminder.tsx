@@ -13,8 +13,10 @@ import { withApollo } from "../utils/withApollo";
 import { DateTime } from "luxon";
 import { getUserTimeZone } from "../utils/getUserTime";
 import { useRouter } from "next/router";
+import { useIsAuth } from "../utils/useIsAuth";
 
 const reminder = () => {
+  useIsAuth();
   const options = [
     {
       label: "select a time zone",

@@ -8,9 +8,11 @@ import Container from "../ui/components/Container";
 import { GenericButton } from "../ui/components/GenericButton";
 import { LoadingSpinner } from "../ui/components/LoadingSpinner";
 import { Selector } from "../ui/Selector";
+import { useIsAuth } from "../utils/useIsAuth";
 import { withApollo } from "../utils/withApollo";
 
 const sync: React.FC = ({}) => {
+  useIsAuth();
   const { data, loading, error } = useMeQuery();
   const router = useRouter();
 
