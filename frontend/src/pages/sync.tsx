@@ -10,6 +10,7 @@ import { withApollo } from "../utils/withApollo";
 
 const sync: React.FC = ({}) => {
   const { data, loading, error } = useMeQuery();
+  console.log(data, loading, error);
 
   if (loading) {
     return <LoadingSpinner />;

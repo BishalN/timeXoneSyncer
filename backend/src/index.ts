@@ -16,6 +16,7 @@ import { helloResolver } from "./modules/dummy/resolver";
 import { meResolver } from "./modules/me/resolver";
 import { customAuthChecker } from "./utils/isAuthenticated";
 import { reminderResolver } from "./modules/reminder/resolver";
+import cors from "cors";
 
 config();
 const RedisStore = connectRedis(session as any);
@@ -42,6 +43,8 @@ const main = async () => {
   );
   app.use(passport.initialize());
 
+  app.use(cors({ origin: true, credentials: true }));
+
   app.use("/auth/google", googleAuthHandler);
   app.use("/auth/facebook", facebookAuthHandler);
   app.use("/auth/discord", discordAuthHandler);
@@ -60,7 +63,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: { origin: "http://localhost:3000", credentials: true },
+    // cors: { origin: "http://localhost:3000", credentials: true },
   });
 
   app.listen(process.env.PORT || 4000, () => {

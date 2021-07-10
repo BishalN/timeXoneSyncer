@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useGetMyRemindersQuery, useMeQuery } from "../generated/graphql";
 import { GenericButton } from "../ui/components/GenericButton";
@@ -22,7 +22,7 @@ const Dash: React.FC = () => {
   } = useGetMyRemindersQuery({ fetchPolicy: "network-only" });
 
   if (myReminders?.getMyReminders?.length !== 0) {
-    useNotificationManager(myReminders?.getMyReminders);
+    // useNotificationManager(myReminders?.getMyReminders);
   }
 
   return (

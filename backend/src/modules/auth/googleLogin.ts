@@ -58,7 +58,7 @@ router.get(
   (req, res) => {
     (req.session as any).userId = (req.user as any).id;
 
-    res.redirect(process.env.LOGIN_SUCCESS_URL as string);
+    res.redirect(process.env.LOGIN_SUCCESS_URL);
   }
 );
 export { router };
