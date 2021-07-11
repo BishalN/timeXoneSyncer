@@ -25,7 +25,7 @@ const main = async () => {
   await createTypeormConnection();
   const app = express();
 
-  app.set("proxy", 1);
+  app.set("trust proxy", 1);
 
   app.use(
     session({
