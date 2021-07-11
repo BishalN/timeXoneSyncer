@@ -3,7 +3,9 @@ import { Strategy } from "passport-google-oauth20";
 import { User } from "../../entity/User";
 import express from "express";
 import { isProd } from "../../utils/isProd";
+import { config } from "../../utils/createDotEnvConfig";
 
+config();
 const router = express.Router();
 passport.use(
   new Strategy(
