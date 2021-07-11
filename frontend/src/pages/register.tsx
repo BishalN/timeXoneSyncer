@@ -11,7 +11,7 @@ import { withApollo } from "../utils/withApollo";
 interface registerProps {}
 
 const register: React.FC<registerProps> = ({}) => {
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const url = process.env.NEXT_PUBLIC_REST_API_URL;
   return (
     <>
       <Container>
