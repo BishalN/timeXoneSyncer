@@ -5,6 +5,7 @@ import { config } from "../../utils/createDotEnvConfig";
 import express from "express";
 import { User } from "../../entity/User";
 import { getConnection } from "typeorm";
+import { isProd } from "../../utils/isProd";
 
 const router = express.Router();
 config();
@@ -12,9 +13,11 @@ config();
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_APP_ID as string,
-      clientSecret: process.env.FACEBOOK_APP_SECRET as string,
-      callbackURL: process.env.FACEBOOK_CALLBACK_URL as string,
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: isProd
+        ? process.env.FACEBOOK_CALLBACK_URL
+        : process.env.FACEBOOK_CALLBACK_URL_DEV,
     },
     async (accessToken, _, profile, cb) => {
       const {
@@ -78,7 +81,9 @@ router.get(
   }),
   (req, res) => {
     (req.session as any).userId = (req.user as any).id;
-    res.redirect(process.env.LOGIN_SUCCESS_URL as string);
+    res.redirect(
+      isProd ? process.env.LOGIN_SUCCESS_URL : process.env.LOGIN_SUCCESS_URL
+    );
   }
 );
 

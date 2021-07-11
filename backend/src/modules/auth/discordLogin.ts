@@ -3,15 +3,18 @@ import { Strategy as DiscordStrategy } from "passport-discord";
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
 import express from "express";
+import { isProd } from "../../utils/isProd";
 
 const router = express.Router();
 
 passport.use(
   new DiscordStrategy(
     {
-      clientID: process.env.DISCORD_CLIENT_ID as string,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
-      callbackURL: process.env.DISCORD_CALLBACK_URL as string,
+      clientID: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      callbackURL: isProd
+        ? process.env.DISCORD_CALLBACK_URL
+        : process.env.DISCORD_CALLBACK_URL_DEV,
       scope: ["identify,email"],
     },
     async (_, __, profile, cb) => {
@@ -66,7 +69,9 @@ router.get(
   (req, res) => {
     (req.session as any).userId = (req.user as any).id;
 
-    res.redirect(process.env.LOGIN_SUCCESS_URL as string); // Successful auth
+    res.redirect(
+      isProd ? process.env.LOGIN_SUCCESS_URL : process.env.LOGIN_SUCCESS_URL_DEV
+    ); // Successful auth
   }
 );
 

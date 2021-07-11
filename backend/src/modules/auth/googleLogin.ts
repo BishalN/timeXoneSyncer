@@ -2,16 +2,17 @@ import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
 import { User } from "../../entity/User";
 import express from "express";
-import { config } from "../../utils/createDotEnvConfig";
+import { isProd } from "../../utils/isProd";
 
 const router = express.Router();
-config();
 passport.use(
   new Strategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL!,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: isProd
+        ? process.env.GOOGLE_CALLBACK_URL
+        : process.env.GOOGLE_CALLBACK_URL_DEV,
       scope: ["profile", "email", "openid"],
     },
     async (req, res, profile, cb) => {
@@ -58,7 +59,9 @@ router.get(
   (req, res) => {
     (req.session as any).userId = (req.user as any).id;
 
-    res.redirect(process.env.LOGIN_SUCCESS_URL);
+    res.redirect(
+      isProd ? process.env.LOGIN_SUCCESS_URL : process.env.LOGIN_SUCCESS_URL_DEV
+    );
   }
 );
 export { router };
