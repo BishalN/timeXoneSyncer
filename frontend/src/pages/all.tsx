@@ -5,8 +5,6 @@ import Flag from "react-country-flag";
 
 import Container from "../ui/components/Container";
 
-import { NavBar } from "../ui/components/NavBar";
-import Link from "next/link";
 import { Footer } from "../ui/components/Footer";
 import { getCurrentTimeByZone } from "../utils/getUserTime";
 import { GenericButton } from "../ui/components/GenericButton";

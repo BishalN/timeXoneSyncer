@@ -18,8 +18,9 @@ import { getCurrentTimeByZone } from "../utils/getUserTime";
 import { GenericButton } from "../ui/components/GenericButton";
 import { useRouter } from "next/router";
 import { useCheckIfAlreadyLogin } from "../utils/useCheckIfAlreadyLogin";
+import { withApollo } from "../utils/withApollo";
 
-export default function landing() {
+function landing() {
   useCheckIfAlreadyLogin();
   const router = useRouter();
   const timeZones = ct.getAllTimezones();
@@ -186,3 +187,5 @@ export default function landing() {
     </>
   );
 }
+
+export default withApollo({})(landing);

@@ -25,6 +25,8 @@ const main = async () => {
   await createTypeormConnection();
   const app = express();
 
+  app.set("proxy", 1);
+
   app.use(
     session({
       store: new RedisStore({
@@ -59,6 +61,8 @@ const main = async () => {
       res,
       redis,
     }),
+    introspection: true,
+    playground: true,
   });
 
   apolloServer.applyMiddleware({
