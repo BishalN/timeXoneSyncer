@@ -65,10 +65,7 @@ const Dash: React.FC = () => {
                 </span>
                 <div>
                   {myReminders?.getMyReminders.length === 0 && (
-                    <GenericButton
-                      title="Set reminders now"
-                      onClick={() => router.push("/reminder")}
-                    />
+                    <p>You have not set any reminders</p>
                   )}
                 </div>
               </div>
