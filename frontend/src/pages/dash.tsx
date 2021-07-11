@@ -63,17 +63,17 @@ const Dash: React.FC = () => {
                 <span className="text-lg text-primary-300">
                   Recent reminders set by you:
                 </span>
+                <div>
+                  {myReminders?.getMyReminders.length === 0 && (
+                    <GenericButton
+                      title="Set reminders now"
+                      onClick={() => router.push("/reminder")}
+                    />
+                  )}
+                </div>
               </div>
 
-              {reminderLoading && <LoadingSpinner />}
-
               <div className="space-y-4">
-                {myReminders?.getMyReminders.length === 0 && (
-                  <GenericButton
-                    title="Set reminders now"
-                    onClick={() => router.push("/reminder")}
-                  />
-                )}
                 {myReminders?.getMyReminders.map((reminder) => {
                   const dt = DateTime.fromISO(reminder.created_at);
                   return (

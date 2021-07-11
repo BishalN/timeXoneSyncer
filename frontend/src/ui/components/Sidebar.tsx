@@ -5,6 +5,7 @@ import Logo from "../../icons/logo";
 import { GenericButton } from "./GenericButton";
 import { useRouter } from "next/router";
 import { useLogOutMutation } from "../../generated/graphql";
+import { isServer } from "../../utils/isServer";
 
 interface sidebarProps {
   username: string;
@@ -17,17 +18,18 @@ export const Sidebar: React.FC<sidebarProps> = ({
   username,
   message,
 }) => {
-  const [logOutMutation, { data, loading, error }] = useLogOutMutation();
+  const [logOutMutation, { loading, error }] = useLogOutMutation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const router = useRouter();
 
-  const handleLogout = () => {
-    logOutMutation();
-    if (!loading && data.logout) {
+  const handleLogout = async () => {
+    const { data } = await logOutMutation();
+    if (data.logout) {
       router.push("/register");
     }
   };
+
   return (
     <>
       {!isSidebarOpen && (
@@ -88,6 +90,7 @@ export const Sidebar: React.FC<sidebarProps> = ({
 
               <GenericButton
                 title="Log Out"
+                isLoading={loading}
                 onClick={() => {
                   handleLogout();
                 }}
@@ -108,6 +111,10 @@ export const Sidebar: React.FC<sidebarProps> = ({
               ) : (
                 ""
               )}
+
+              <p className="text-xs mt-5">
+                Note: Notification triggerer only works on chrome browser
+              </p>
             </div>
           </div>
         </div>
