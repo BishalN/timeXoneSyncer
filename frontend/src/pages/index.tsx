@@ -84,7 +84,7 @@ function landing() {
           />
         </section>
 
-        <section id="testimonialSection" className="mb-10">
+        {/* <section id="testimonialSection" className="mb-10">
           <div className="flex justify-center items-center mt-32">
             <h3 className="text-secondary text-center leading-7">
               What do TimeXoneSyncer user say about it?
@@ -130,7 +130,7 @@ function landing() {
               </a>
             </Link>
           </div>
-        </section>
+        </section> */}
 
         <section id="supportedZoneSection">
           <div>
