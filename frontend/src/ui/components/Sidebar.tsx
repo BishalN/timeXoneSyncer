@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Logo from "../../icons/logo";
 import { GenericButton } from "./GenericButton";
 import { useRouter } from "next/router";
+import { useLogOutMutation } from "../../generated/graphql";
 
 interface sidebarProps {
   username: string;
@@ -16,9 +17,17 @@ export const Sidebar: React.FC<sidebarProps> = ({
   username,
   message,
 }) => {
+  const [logOutMutation, { data, loading, error }] = useLogOutMutation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const router = useRouter();
+
+  const handleLogout = () => {
+    logOutMutation();
+    if (!loading && data.logout) {
+      router.push("/register");
+    }
+  };
   return (
     <>
       {!isSidebarOpen && (
@@ -27,7 +36,6 @@ export const Sidebar: React.FC<sidebarProps> = ({
           size={40}
           onClick={() => {
             toggleSidebar();
-            console.log(isSidebarOpen);
           }}
         />
       )}
@@ -46,7 +54,6 @@ export const Sidebar: React.FC<sidebarProps> = ({
               size={20}
               onClick={() => {
                 toggleSidebar();
-                console.log(isSidebarOpen);
               }}
             />
           )}
@@ -76,6 +83,13 @@ export const Sidebar: React.FC<sidebarProps> = ({
                 title="Set Reminders"
                 onClick={() => {
                   router.push("/reminder");
+                }}
+              />
+
+              <GenericButton
+                title="Log Out"
+                onClick={() => {
+                  handleLogout();
                 }}
               />
               {message.length > 1 ? (

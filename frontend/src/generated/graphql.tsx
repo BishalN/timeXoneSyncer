@@ -19,6 +19,7 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  logout: Scalars['Boolean'];
   setReminder?: Maybe<Scalars['Boolean']>;
   deleteReminder?: Maybe<Scalars['Boolean']>;
 };
@@ -67,6 +68,14 @@ export type DeleteReminderMutationVariables = Exact<{
 export type DeleteReminderMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteReminder'>
+);
+
+export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogOutMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'logout'>
 );
 
 export type SetReminderMutationVariables = Exact<{
@@ -143,6 +152,36 @@ export function useDeleteReminderMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteReminderMutationHookResult = ReturnType<typeof useDeleteReminderMutation>;
 export type DeleteReminderMutationResult = Apollo.MutationResult<DeleteReminderMutation>;
 export type DeleteReminderMutationOptions = Apollo.BaseMutationOptions<DeleteReminderMutation, DeleteReminderMutationVariables>;
+export const LogOutDocument = gql`
+    mutation logOut {
+  logout
+}
+    `;
+export type LogOutMutationFn = Apollo.MutationFunction<LogOutMutation, LogOutMutationVariables>;
+
+/**
+ * __useLogOutMutation__
+ *
+ * To run a mutation, you first call `useLogOutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogOutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logOutMutation, { data, loading, error }] = useLogOutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogOutMutation(baseOptions?: Apollo.MutationHookOptions<LogOutMutation, LogOutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogOutMutation, LogOutMutationVariables>(LogOutDocument, options);
+      }
+export type LogOutMutationHookResult = ReturnType<typeof useLogOutMutation>;
+export type LogOutMutationResult = Apollo.MutationResult<LogOutMutation>;
+export type LogOutMutationOptions = Apollo.BaseMutationOptions<LogOutMutation, LogOutMutationVariables>;
 export const SetReminderDocument = gql`
     mutation setReminder($date: String!, $title: String!, $userSetDate: String!) {
   setReminder(date: $date, title: $title, userSetDate: $userSetDate)
@@ -290,6 +329,7 @@ export const namedOperations = {
   },
   Mutation: {
     deleteReminder: 'deleteReminder',
+    logOut: 'logOut',
     setReminder: 'setReminder'
   }
 }
