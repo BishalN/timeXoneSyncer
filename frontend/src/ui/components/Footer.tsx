@@ -24,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
         </div>
       </div>
       <p className="text-center bg-secondary pb-4">
-        Copyright © 2021 TimeXoneSyncer LLC. All rights reserved
+        Copyright © 2021 TimeXoneSyncer. All rights reserved
       </p>
     </section>
   );
