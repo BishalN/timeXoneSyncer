@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             </a>
           </Link>
 
-          <Link href="#">
+          <Link href="/privacy">
             <a className="focus:text-accent-hover">Privacy Policy</a>
           </Link>
         </div>
