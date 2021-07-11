@@ -14,13 +14,9 @@ export const Footer: React.FC<FooterProps> = ({}) => {
             </a>
           </Link>
 
-          {/* <Link href="#">
-            <a className="focus:text-accent-hover">Legal Stuff</a>
-          </Link>
-
           <Link href="#">
             <a className="focus:text-accent-hover">Privacy Policy</a>
-          </Link> */}
+          </Link>
         </div>
       </div>
       <p className="text-center bg-secondary pb-4">
