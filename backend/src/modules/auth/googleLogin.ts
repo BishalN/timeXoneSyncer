@@ -55,11 +55,13 @@ router.get(
 router.get(
   "/callback",
   passport.authenticate("google", {
-    failureRedirect: process.env.LOGIN_URL,
+    failureRedirect: isProd ? process.env.LOGIN_URL : process.env.LOGIN_URL_DEV,
     session: false,
   }),
   (req, res) => {
     (req.session as any).userId = (req.user as any).id;
+
+    console.log("I am here in the callback");
 
     res.redirect(
       isProd ? process.env.LOGIN_SUCCESS_URL : process.env.LOGIN_SUCCESS_URL_DEV

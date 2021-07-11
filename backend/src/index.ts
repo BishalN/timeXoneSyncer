@@ -17,6 +17,7 @@ import { meResolver } from "./modules/me/resolver";
 import { customAuthChecker } from "./utils/isAuthenticated";
 import { reminderResolver } from "./modules/reminder/resolver";
 import cors from "cors";
+import { isProd } from "./utils/isProd";
 
 config();
 const RedisStore = connectRedis(session as any);
@@ -50,7 +51,12 @@ const main = async () => {
   );
   app.use(passport.initialize());
 
-  app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
+  app.use(
+    cors({
+      origin: isProd ? process.env.CORS_ORIGIN : process.env.CORS_ORIGIN_DEV,
+      credentials: true,
+    })
+  );
 
   app.use("/auth/google", googleAuthHandler);
   app.use("/auth/facebook", facebookAuthHandler);
