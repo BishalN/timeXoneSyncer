@@ -11,6 +11,7 @@ import { withApollo } from "../utils/withApollo";
 interface registerProps {}
 
 const register: React.FC<registerProps> = ({}) => {
+  const url = process.env.NEXT_PUBLIC_API_URL;
   return (
     <>
       <Container>
@@ -33,19 +34,19 @@ const register: React.FC<registerProps> = ({}) => {
               <Button
                 title="Login with google"
                 Icon={AiOutlineGoogle}
-                endPoint="http://localhost:4000/auth/google"
+                endPoint={`${url}/auth/google`}
               />
 
               <Button
                 title="Login with facebook"
                 Icon={FaFacebook}
-                endPoint="http://localhost:4000/auth/facebook"
+                endPoint={`${url}/auth/facebook`}
               />
 
               <Button
                 title="Login with discord"
                 Icon={FaDiscord}
-                endPoint="http://localhost:4000/auth/discord"
+                endPoint={`${url}/auth/discord`}
               />
             </div>
           </div>

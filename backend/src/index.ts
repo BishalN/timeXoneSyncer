@@ -39,13 +39,18 @@ const main = async () => {
       cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 1000 * 60 * 60 * 24 * 7, //7 days
+        maxAge: 1000 * 60 * 60 * 24 * 7, //7 days,
+        sameSite: "lax",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? "timexonesyncer.tech"
+            : undefined,
       },
     })
   );
   app.use(passport.initialize());
 
-  app.use(cors({ origin: true, credentials: true }));
+  app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 
   app.use("/auth/google", googleAuthHandler);
   app.use("/auth/facebook", facebookAuthHandler);
@@ -67,10 +72,7 @@ const main = async () => {
 
   apolloServer.applyMiddleware({
     app,
-    cors: {
-      origin: "https://time-xone-syncer.vercel.app",
-      credentials: true,
-    },
+    cors: false,
   });
 
   app.listen(process.env.PORT || 4000, () => {
