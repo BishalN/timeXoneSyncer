@@ -19,7 +19,7 @@ import { GenericButton } from "../ui/components/GenericButton";
 import { useRouter } from "next/router";
 import { useCheckIfAlreadyLogin } from "../utils/useCheckIfAlreadyLogin";
 import { withApollo } from "../utils/withApollo";
-import Head from 'next/head'
+import Head from "next/head";
 
 function landing() {
   useCheckIfAlreadyLogin();
@@ -38,17 +38,17 @@ function landing() {
   }
   return (
     <>
-    <Head>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SSCP12E8QL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-SSCP12E8QL');
-</script>
-    </Head>
+      <Head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SSCP12E8QL"
+        ></script>
+        <script>
+          window.dataLayer = window.dataLayer || []; function gtag()
+          {(window as any).dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-SSCP12E8QL');
+        </script>
+      </Head>
       <Container>
         <NavBar />
 
