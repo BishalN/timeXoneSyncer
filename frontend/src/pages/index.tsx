@@ -43,11 +43,6 @@ function landing() {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-SSCP12E8QL"
         ></script>
-        <script>
-          window.dataLayer = window.dataLayer || []; function gtag()
-          {(window as any).dataLayer.push(arguments)}
-          gtag('js', new Date()); gtag('config', 'G-SSCP12E8QL');
-        </script>
       </Head>
       <Container>
         <NavBar />
